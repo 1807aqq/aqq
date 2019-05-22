@@ -95,7 +95,7 @@ class Product(models.Model):
 
 
 # 资金记录表
-class money(models.Model):
+class Money(models.Model):
     # 记录id
     id = models.IntegerField(null=False, primary_key=True, unique=True)
     # 获取当前时间  设置settings USE_TZ=False
@@ -115,8 +115,8 @@ class money(models.Model):
 
 # 行业动态表
 
-class industry(models.Model):
-    id = models.IntegerField(primary_key=True, null=False, unique=True)
+class Industry(models.Model):
+    ip = models.IntegerField(primary_key=True, null=False, unique=True)
     # 动态标题
     name = models.CharField(max_length=100, null=False)
     # 新闻发布时间
@@ -129,7 +129,7 @@ class industry(models.Model):
 
 # 投资记录表
 
-class investment(models.Model):
+class Investment(models.Model):
     id = models.IntegerField(primary_key=True, null=False, unique=True)
     # 用户id
     uid = models.IntegerField(null=False)

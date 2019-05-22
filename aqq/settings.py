@@ -57,7 +57,7 @@ ROOT_URLCONF = 'aqq.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../../templates')]
+        'DIRS': [os.path.join(BASE_DIR, '../aqq/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'aqq',
-        'HOST':'localhost',
+        'HOST':'10.12.152.85',
         'PORT':3306,
         'USER':'root',
         'PASSWORD':'0314',
