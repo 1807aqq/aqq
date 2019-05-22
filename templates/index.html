@@ -380,11 +380,9 @@
             <div class="trade-news">
                 <div class="news-pic">
                     <a href="javascript:;">
-<<<<<<< HEAD:aqq/templates/DDT/index.html
-                        <img src="img/fuel.png" alt="">
-=======
+
                         <img src="/static/img/fuel.png" alt="">
->>>>>>> qi:aqq/templates/index.html
+
                     </a>
                 </div>
                 <div class="news-txt">
@@ -401,30 +399,10 @@
             <!--<a href="press-center.html" title="查看更多" class="more-news red">查看更多</a>-->
             <div class="trade-tidings list_lh-2">
                 <ul>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
+                    {% for data in datas %}
+                    <li><a href="aqq/details/?id="+{{ data.id }}>{{ data.title }}</a><span>{{ data.news_time }}</span>
                     </li>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
-                    </li>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
-                    </li>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
-                    </li>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
-                    </li>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
-                    </li>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
-                    </li>
-                    <li><a href="press-details.html">花点钱就能删除不良信用记录？ 银行：是骗局花点钱就能删除不良信用记录？
-                        银行：是骗局</a><span>2016-10-25</span>
-                    </li>
+                    {% endfor %}
                 </ul>
 
             </div>

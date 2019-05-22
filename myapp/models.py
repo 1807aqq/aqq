@@ -116,11 +116,11 @@ class money(models.Model):
 # 行业动态表
 
 class industry(models.Model):
-    id = models.IntegerField(primary_key=True, null=False, unique=True)
+    id = models.IntegerField(primary_key=True,null=False, unique=True)
     # 动态标题
     name = models.CharField(max_length=100, null=False)
     # 新闻发布时间
-    tiem = models.CharField(max_length=50)
+    time = models.CharField(max_length=50)
     # 新闻详情
     info = models.TextField()
     class Meta:

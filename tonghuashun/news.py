@@ -1,10 +1,20 @@
 import re
 import time
-
+import pymysql
 import requests
 from bs4 import BeautifulSoup
 from lxml import etree
-from aqq_1.tools import headers
+from tools import headers
+msg = {
+        'host':'10.12.152.85',
+        'port':3306,
+        'user':'root',
+        'password':'0314',
+        'db':'aqq',
+        'charset':'utf8'
+}
+conn = pymysql.Connect(**msg)
+cursor = conn.cursor()
 def Downlode(url):
     resp = requests.get(url)
     html = resp.content
@@ -25,23 +35,30 @@ def prams(html):
     save(links)
 
 def save(items):
+    data = []
     for url in items:
         #print(url)
-        data = []
         root = requests.get(url,headers = headers.get_headers())
         text = root.text
-        time.sleep(2)
+        time.sleep(1)
         # filename = url.split('/')[-1]
         # with open(filename, 'w') as f:
         #     f.write(text)
-        dt = {}
+
         try:
-            dt['info'] = re.findall(r'<div class="main-text atc-content">(.*?)<p class="bottomSign"', text, re.S)[0].strip()
-            dt['news_time'] = re.findall(r' id="pubtime_baidu">(.*?)</span>', text)[0]
-            dt['title'] = re.findall(r'<title>(.*?)</title>', text)[0]
-            data.append(dt)
-        except:
-            pass
+            info = re.findall(r'<div class="main-text atc-content">(.*?)<p class="bottomSign"', text, re.S)[0].strip()
+            news_time= re.findall(r' id="pubtime_baidu">(.*?)</span>', text)[0]
+            title= re.findall(r'<title>(.*?)</title>', text)[0]
+            # cursor.execute('truncate table industries')
+            # conn.commit()
+            print(info)
+            sql = 'insert into industries(name,tiem,info)values(%s,%s,%s)'%(title,news_time,info)
+            cursor.execute(sql)
+            conn.commit()
+        except Exception as e:
+            print('插入失败',e)
+            conn.rollback()
+
 
 
 
