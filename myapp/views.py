@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from tonghuashun.news import *
-from myapp.models import User, Industry
+from myapp.models import User, Industry ,Product
 from tools.msg_send import get_code, confirm
 import time
 
@@ -57,6 +57,27 @@ def press_center(request):
         db['title'] = data.name
         msgs[data.ip] = db
     return render(request, 'press-center.html', {'datas': msgs})
+
+# 投资理财页面
+def invest(request,tid,sid,did):
+    if request.method == 'GET':
+        select = {'tid':tid,'sid':sid,'did':did}
+        for k in select:
+            if select[k] == '0':
+                select.pop(k)
+        produces = Product.objects.filter()
+
+
+        data = {
+            'products':produces,
+            'tid':0,
+            'sid':0,
+            'did':0
+        }
+
+        return render(request,'invest.html',data)
+
+
 
 def details(request):
     return render(request, "details.html")
