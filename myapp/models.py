@@ -2,17 +2,19 @@ from django.db import models
 
 class User(models.Model):
     # 用户ID
-    uid = models.IntegerField(primary_key=True, unique=True, null=False)
+    uid = models.IntegerField(primary_key=True, unique=True, null=False, auto_created=True)
     # 用户手机号码
-    phone = models.IntegerField(null=False)
+    phone = models.CharField(max_length=11,null=False)
     # 用户密码
     passwd = models.CharField(max_length=50,null=False)
     # 用户姓名
     name = models.CharField(max_length=50,null=False)
+    # 用户昵称
+    nickname = models.CharField(max_length=50, null=False)
     # 用户身份证
-    identity = models.IntegerField()
+    identity = models.CharField(max_length=30)
     # 用户银行卡号
-    bank_num = models.IntegerField()
+    bank_num = models.CharField(max_length=50)
     # 用户银行名称
     banks = models.CharField(max_length=50)
     # 用户所在地
@@ -20,7 +22,7 @@ class User(models.Model):
     # 用户开户行
     open_bank = models.CharField(max_length=50)
     # 用户地址
-    address = models.CharField(max_length=200, null=False)
+    address = models.CharField(max_length=200)
     # 教育信息
     edu = models.CharField(max_length=50)
     # 毕业学校
@@ -36,7 +38,7 @@ class User(models.Model):
     # 是否买车
     car = models.BooleanField()
     # 紧急联系人电话
-    em_contact = models.IntegerField(null=False)
+    em_contact = models.CharField(max_length=30)
 
     class Meta:
         db_table = 'user'
@@ -78,17 +80,23 @@ class Loan(models.Model):
 
 class Product(models.Model):
     # 产品id
-    id = models.IntegerField(primary_key=True, unique=True, null=False)
+    id = models.IntegerField(primary_key=True, unique=True, auto_created=True, null=False)
     # 产品名称
-    name = models.CharField(max_length=50, null=False)
-    # 产品类型   # 是借贷类（1）和投资类（2）
-    type = models.IntegerField(null=False)
+    name = models.CharField(max_length=50)
+    # 产品类型
+    type = models.IntegerField()
     # 年收益率/利息
-    y_rate = models.FloatField(null=False)
+    y_rate = models.FloatField()
     # 投资周期/借款多长时间
-    time_limit = models.IntegerField(null=False)
+    time_limit = models.IntegerField()
     # 融资金额/
-    amount = models.FloatField(null=False)
+    amount = models.FloatField()
+    # 机构id
+    institution = models.IntegerField()
+    # 风险级别
+    risk = models.FloatField()
+    # 还款方式
+    payment = models.IntegerField()
 
     class Meta:
         db_table = 'products'
@@ -142,3 +150,10 @@ class Investment(models.Model):
     class Meta:
         db_table = 'investment'
 
+
+class Institutions(models.Model):
+    id = models.IntegerField(primary_key=True, null=False, auto_created=True)
+    name = models.CharField(max_length=50)
+    info = models.TextField()
+    class Meta:
+        db_table = 'institutions'

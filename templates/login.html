@@ -61,6 +61,8 @@
 <div class="logins">
     <div class="box">
         <h2>账户登录</h2>
+        <form method="post">
+            {% csrf_token %}
         <div id="error_box"></div>
         <div class="input_box">
             <i class="in-name"></i>
@@ -71,12 +73,13 @@
             <input type="password" placeholder="请输入密码" name="password" id="upass"/>
         </div>
         <div class="input_box">
-            <button onclick="fnLogin()">登 &nbsp;录</button>
+            <button onclick="fnLogin()" type="submit">登 &nbsp;录</button>
         </div>
         <div class="for-pass">
             <a href="Forget-password.html">忘记密码</a>
             <a href="enroll-1.html">免费注册</a>
         </div>
+            </form>
     </div>
 </div>
 </body>

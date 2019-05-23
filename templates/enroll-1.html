@@ -87,9 +87,10 @@
         </div>
         <!--表单-->
         <div class="form">
-            <form action="enroll-2.html">
+            <form method="post">
+                {% csrf_token %}
                 <div class="div-pho">
-                    <label for="phone">手机</label><input type="text" id="phone" class="infos" placeholder="请输入手机号" />
+                    <label for="phone">手机</label><input type="text" id="phone" name="phone" class="infos" placeholder="请输入手机号" />
                 </div>
                 <div class="div-phone">
                     <label>短信验证码</label><input type="text" id="phone-message" name="phone-message" class="infos" placeholder="请输入验证码" />
@@ -99,12 +100,38 @@
                     <label for="ranks">登陆密码</label><input type="password" id="ranks" class="infos" name="pw" placeholder="请设置登陆密码"  />
                 </div>
                 <div class="div-ranks">
-                    <label for="ranks">邀请码</label><input type="text" id="ran" class="infos" placeholder="请输入邀请码"  />
-                </div>
-                <div class="div-conform">
-                    <a href="enroll-2.html" class="conform" id="submit">注册</a>
+                    <label for="ranks">用户名</label><input type="text" id="ran" class="infos" name="nickname" placeholder="请输入用户名"  />
                 </div>
 
+                <div class="div-phone">
+                    <label for="phone">真实姓名</label><input type="text" id="phone" class="infos" name="realname" placeholder="请输入你的真实姓名" />
+                </div>
+                <div class="div-ranks">
+                    <label for="identity">身份证号码</label><input type="text" id="identity" class="infos" name="identity" placeholder="请输入你的身份证号码"  />
+                </div>
+                <div class="div-phone">
+                    <label for="phone">卡号</label><input type="text" id="phone" class="infos" name="bank_num" placeholder="请输入本人银行卡号" />
+                </div>
+                <div class="div-ranks">
+                    <label for="identity">银行名称</label>
+                    <select id="category" name="category" class="banks">
+                        <option value="">请选择银行</option>
+                        <option value="1">银行1</option>
+                        <option value="2">银行2</option>
+                        <option value="3">银行3</option>
+                        <option value="4">银行4</option>
+                    </select>
+                </div>
+                <div class="div-ranks">
+                    <label for="identity">所在地</label><input type="text" class="infos" id="cityChoice" name="city" placeholder="请选择你的城市" >
+                </div>
+
+                <div class="div-ranks">
+                    <label for="identity">开户行</label><input type="text" id="identity" class="infos" name="open_bank" placeholder="请输入开户行"  />
+                </div>
+                <div>
+                    <button type="submit" class="conform" id="submit" style="font-size:large">注册</button>
+                </div>
                 <div class="div-login">
                     <span style="margin-left: 110px">已有账户，<a href="login.html" style="color: #F3270D;">直接登录</a></span>
                 </div>
