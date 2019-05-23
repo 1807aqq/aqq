@@ -8,5 +8,5 @@ urlpatterns = [
     path('enroll/', register, name='enroll'),
     path('home/',go_index,name='home'),
     path('details/<id>/',go_details,name = 'details'),
-    path('center/',press_center,name='center')
-]
+    path('center/',press_center,name='center'),
+    ]
