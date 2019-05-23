@@ -378,29 +378,17 @@
         <h3>行业动态</h3>
         <div class="trade">
             <div class="trade-news">
-                <div class="news-pic">
-                    <a href="javascript:;">
+                <iframe width="100%" scrolling="no" height="280"
+			frameborder="no" border="0" src="http://stockpage.10jqka.com.cn/api/news_v2/399001_399006_1A0001/"></iframe>
 
-                        <img src="/static/img/fuel.png" alt="">
-
-                    </a>
-                </div>
-                <div class="news-txt">
-                    <h4><a href="javascript:;">油价不断走高 全球油企最困难时期仍未过去</a></h4>
-                    <p>在过去几周里，由于火灾、罢工等天灾人祸和国
-                        际经济博弈的影响下，国际油价不断走高。18日
-                        国际油价继续上行，刷新六个月新高，直指。
-                        在过去几周里，由于火灾、罢工等天灾人祸和国
-                        际经济博弈的影响下，国际油价不断走高。</p>
-                    <a href="press-details.html" title="查看详情" class="red">查看详情</a>
-                </div>
             </div>
             <!--滚动新闻-->
             <!--<a href="press-center.html" title="查看更多" class="more-news red">查看更多</a>-->
             <div class="trade-tidings list_lh-2">
                 <ul>
-                    {% for data in datas %}
-                    <li><a href="aqq/details/?id="+{{ data.id }}>{{ data.title }}</a><span>{{ data.news_time }}</span>
+
+                    {% for ip,data in datas.items %}
+                    <li><a href="http://localhost:8000/aqq/details/{{ data.ip }}/">{{ data.title }}</a><span>{{ data.news_time }}</span>
                     </li>
                     {% endfor %}
                 </ul>

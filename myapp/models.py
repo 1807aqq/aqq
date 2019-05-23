@@ -117,7 +117,7 @@ class Money(models.Model):
 
 
 class Industry(models.Model):
-    ip = models.IntegerField(primary_key=True, null=False, unique=True)
+    ip = models.IntegerField(primary_key=True, auto_created=True, null=False, unique=True)
     # 动态标题
     name = models.CharField(max_length=100, null=False)
     # 新闻发布时间

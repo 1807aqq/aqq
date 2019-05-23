@@ -48,13 +48,13 @@
         <a href="index.html"><div class="logo"></div></a>
         <div class="nav-list">
             <ul>
-                <li><a target="_blank" href="index.html">首页</a></li>
+                <li><a target="_blank" href="{% url 'aqq:home' %}">首页</a></li>
                 <li><a target="_blank" href="invest.html">投资理财</a></li>
                 <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
                 <li><a target="_blank" href="secure.html">安全保障</a></li>
                 <li><a target="_blank" href="anenst.html" class="red">关于我们</a></li>
                 <li><a target="_blank" href="Beginners-Guide.html">新手引导</a></li>
-                <li><a target="_blank" href="my-account.html" class="my-cons"><i class="my-con"></i>我的账户</a></li>
+                <li><a target="_blank" href="{% url 'aqq:account' %}" class="my-cons"><i class="my-con"></i>我的账户</a></li>
             </ul>
         </div>
     </div>
@@ -69,7 +69,7 @@
     <!--面包屑导航-->
     <div class="crumbs" style="background-color:#f3f3f3">
         <span><a href="javascript:;" title="当前位置">当前位置：</a></span>
-        <span><a href="index.html" target="_blank" title="首页">首页</a>&nbsp;&gt;&nbsp;</span>
+        <span><a href="{% url 'aqq:home' %}" target="_blank" title="首页">首页</a>&nbsp;&gt;&nbsp;</span>
         <span><a href="anenst.html" style="color: #F3270D" target="_blank" title="关于我们">关于我们</a></span>
     </div>
     <div class="center">
@@ -94,61 +94,18 @@
                 </div>
                 <div class="news-list">
                     <ul >
+                        {% for ip,data in datas.items %}
                         <li>
                             <div class="news-pic">
-                                <img src="" alt="">
+                                <img src="{{ data.image }}" alt="">
                             </div>
                             <div class="news-txt">
-                                <h3>《互联网人群借款行为研究》报告：80后成借贷市场主力</h3>
-                                <p>数据显示，9000份调研问卷中近一半（49%）的人曾经有过借贷行为，而未来一年内有借
-                                    贷需求的人占56%，未来借贷市场需求不断上升。</p>
-                                <a href="press-details.html">查看详情</a>
+                                <h3>{{ data.title }}</h3>
+                                <p>{{ data.info }}...</p>
+                                <a href="http://localhost:8000/aqq/details/{{ data.ip }}/">查看详情</a>
                             </div>
                         </li>
-                        <li>
-                            <div class="news-pic">
-                                <img src="" alt="">
-                            </div>
-                            <div class="news-txt">
-                                <h3>《互联网人群借款行为研究》报告：80后成借贷市场主力</h3>
-                                <p>数据显示，9000份调研问卷中近一半（49%）的人曾经有过借贷行为，而未来一年内有借
-                                    贷需求的人占56%，未来借贷市场需求不断上升。</p>
-                                <a href="press-details.html">查看详情</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="news-pic">
-                                <img src="" alt="">
-                            </div>
-                            <div class="news-txt">
-                                <h3>《互联网人群借款行为研究》报告：80后成借贷市场主力</h3>
-                                <p>数据显示，9000份调研问卷中近一半（49%）的人曾经有过借贷行为，而未来一年内有借
-                                    贷需求的人占56%，未来借贷市场需求不断上升。</p>
-                                <a href="press-details.html">查看详情</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="news-pic">
-                                <img src="" alt="">
-                            </div>
-                            <div class="news-txt">
-                                <h3>《互联网人群借款行为研究》报告：80后成借贷市场主力</h3>
-                                <p>数据显示，9000份调研问卷中近一半（49%）的人曾经有过借贷行为，而未来一年内有借
-                                    贷需求的人占56%，未来借贷市场需求不断上升。</p>
-                                <a href="press-details.html">查看详情</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="news-pic">
-                                <img src="" alt="">
-                            </div>
-                            <div class="news-txt">
-                                <h3>《互联网人群借款行为研究》报告：80后成借贷市场主力</h3>
-                                <p>数据显示，9000份调研问卷中近一半（49%）的人曾经有过借贷行为，而未来一年内有借
-                                    贷需求的人占56%，未来借贷市场需求不断上升。</p>
-                                <a href="press-details.html">查看详情</a>
-                            </div>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <!--分页-->
