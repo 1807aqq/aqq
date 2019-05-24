@@ -64,13 +64,14 @@ def login(request):
     if request.method == "GET":
         return render(request, 'login.html')
 
-    if request.method == "POST":
+    elif request.method == "POST":
         phone = request.POST.get('name')
         passwd = request.POST.get('password')
         print(phone,passwd,"@@@@@@@@@@@2")
         if User.objects.filter(phone=phone, passwd=passwd).exists():
             user = User.objects.filter(phone=phone, passwd=passwd)[0]
             if phone == user.phone and passwd == user.passwd:
+                request.session['uid']=user.uid
                 return render(request, 'my-account.html')
             else:
                 context = {'msg':'用户名或密码错误！！！'}
@@ -237,3 +238,5 @@ def codes(request,phone):
     return JsonResponse({
         'code': 200,
     })
+
+# 投资理财专区
