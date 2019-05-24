@@ -1,10 +1,6 @@
-<<<<<<< HEAD
+
 from django.db.models import Q, Sum, Count
-=======
 
-
-from django.db.models import Q
->>>>>>> wzy
 
 from tonghuashun.news import *
 
@@ -60,18 +56,23 @@ def login(request):
 
 
 def my_account(request):
+
     return render(request, 'my-account.html')
 
 
 # 进入首页
 def go_index(request):
+    user = request.user
+    print(user,'..........')
     if request.method == 'GET':
+
         now_time = time.localtime().tm_min
         if now_time%10 == 0:
             Downlode()
         datas = Industry.objects.all()
         sum_amount = Product.objects.all().aggregate(Sum('amount'))
         count = Product.objects.all().aggregate(Count('name'))
+        print(sum_amount,count)
         msgs = {}
         new_pro = Product.objects.filter(type=1)
         for data in datas:
@@ -85,7 +86,8 @@ def go_index(request):
                        'new_pros':new_pro[:3],
                        'pros':new_pro[5:8],
                       'sum_amount':sum_amount,
-                       'count':count})
+                       'count':count,
+                       'user':user})
 
 
 # 进入新闻详情页
@@ -127,7 +129,8 @@ def invest(request,tid,sid,did,page):
             else:
                 filters.append(select[k][1][int(select[k][0])-1])
         data = {}
-        m = int(page) * 8
+        newpage = int(page)
+        m = newpage * 8
         if len(filters) > 0:
             for i in filters:
                 if ',' in i:
@@ -144,13 +147,13 @@ def invest(request,tid,sid,did,page):
 
         else:
             produces = Product.objects.all()[m-8:m]
-
+        newpage +=1
         data = {
             'products': produces,
             'tid': tid,
             'sid': sid,
             'did': did,
-            'page':page
+            'page':newpage
         }
         return render(request,'invest.html',data)
 
@@ -188,12 +191,63 @@ def secure(request):
 def anenst(request):
     return render(request,'anenst.html')
 
-<<<<<<< HEAD
 
+# 借贷专区
 def borrow_money(request):
     return render(request,'borrow-money.html')
-=======
+
 # 新手指南
 def  guide(request):
     return  render(request,'Beginners-Guide.html')
->>>>>>> wzy
+
+# 申请质押贷款
+def pledge(request):
+    if request.method == 'GET':
+        return render(request,'mortgage-loan.html')
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！'
+            }
+    return render(request,'Pledge-loan.html')
+
+# 申请抵押贷
+def mortgage(request):
+    if request.method == 'GET':
+        return render(request,'mortgage-loan.html')
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！'
+            }
+
+
+# 申请创业贷
+def venture(request):
+    if request.method == 'GET':
+        return render(request,'mortgage-loan.html')
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！'
+            }
+    return render(request,'Venture-loan.html')
+
+# 申请保单贷
+def policy(request):
+    if request.method == 'GET':
+        return render(request,'mortgage-loan.html')
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！'
+            }
+    return render(request,'Policy-loan.html')

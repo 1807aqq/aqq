@@ -193,8 +193,9 @@
     <!--bd-two结束-->
 
     <!--分页-->
+
     <div id="pageToolbar" ><h3><span style="margin-left: 500px;font-size: 20px " >当前第{{ page }}页</span>
-        <a href="{% url 'aqq:invest' tid=tid sid=sid did=did page=2 %}" style="color: red;font-size: 20px ">下一页</a></h3></div>
+        <a href="{% url 'aqq:invest' tid=tid sid=sid did=did page=page %}" style="color: red;font-size: 20px ">下一页</a></h3></div>
     <!--分页结束-->
 
 </div>
