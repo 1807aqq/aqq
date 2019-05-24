@@ -11,15 +11,12 @@ urlpatterns = [
     path('center/',press_center,name='center'),
     path('invest/<tid>/<sid>/<did>/<page>/',invest,name= 'invest'),
     path('product/<pid>/',details,name='product'),
-<<<<<<< HEAD
     path('borrow/',borrow_money,name='borrow'),
-=======
     path('secure/',secure,name='secure'),
     path('anenst/',anenst,name='anenst'),
     path('guide/',guide,name='guide'),
-
-
->>>>>>> wzy
-
+    path('help/',help,name='help'),
+    path('recharge/',recharge,name='recharge'),
+    path('withdraw/',withdraw,name='withdraw'),
 ]
 

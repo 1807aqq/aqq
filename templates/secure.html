@@ -34,9 +34,9 @@
             </div>
             <!--右边-->
             <div class="top-right">
-                <a target="_blank" href="enroll-1.html">快速注册</a>
+               <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
                 <a target="_blank" href="login.html">立即登录</a>
-                <a target="_blank" href="help-center.html">帮助中心</a>
+                <a target="_blank" href="{% url 'aqq:help' %}" class="red">帮助中心</a>
             </div>
         </div>
     </div>
@@ -47,13 +47,13 @@
         </a>
         <div class="nav-list">
             <ul>
-                <li><a target="_blank" href="index.html">首页</a></li>
-                <li><a target="_blank" href="invest.html">投资理财</a></li>
-                <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
-                <li><a target="_blank" href="secure.html" class="red">安全保障</a></li>
-                <li><a target="_blank" href="anenst.html">关于我们</a></li>
-                <li><a target="_blank" href="Beginners-Guide.html">新手引导</a></li>
-                <li><a target="_blank" href="my-account.html" class="my-cons"><i class="my-con"></i>我的账户</a></li>
+                <li><a target="_blank" href="{% url 'aqq:home' %}">首页</a></li>
+                <li><a target="_blank" href="{% url 'aqq:invest' tid=0 sid=0 did=0 page=1 %}">投资理财</a></li>
+                <li><a target="_blank" href="{% url 'aqq:borrow' %}" class="red">借贷专区</a></li>
+                <li><a target="_blank" href="{% url 'aqq:secure' %}">安全保障</a></li>
+                <li><a target="_blank" href="{% url 'aqq:anenst' %}">关于我们</a></li>
+                <li><a target="_blank" href="{% url 'aqq:guide' %}">新手引导</a></li>
+                <li><a target="_blank" href="{% url 'aqq:account' %}" class="my-cons"><i class="my-con"></i>我的账户</a></li>
             </ul>
         </div>
     </div>

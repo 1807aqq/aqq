@@ -36,9 +36,9 @@
             </div>
             <!--右边-->
             <div class="top-right">
-                <a target="_blank" href="enroll-1.html">快速注册</a>
+                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
                 <a target="_blank" href="login.html">立即登录</a>
-                <a target="_blank" href="help-center.html">帮助中心</a>
+                <a target="_blank" href="{% url 'aqq:help' %}" class="red">帮助中心</a>
             </div>
         </div>
     </div>
@@ -47,13 +47,13 @@
         <a href="index.html"><div class="logo"></div></a>
         <div class="nav-list">
             <ul>
-                <li><a target="_blank" href="index.html">首页</a></li>
-                <li><a target="_blank" href="invest.html">投资理财</a></li>
-                <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
-                <li><a target="_blank" href="secure.html">安全保障</a></li>
-                <li><a target="_blank" href="anenst.html">关于我们</a></li>
-                <li><a target="_blank" href="Beginners-Guide.html">新手引导</a></li>
-                <li><a target="_blank" href="my-account.html" class="my-cons red"><i class="my-con"></i>我的账户</a></li>
+               <li><a target="_blank" href="{% url 'aqq:home' %}">首页</a></li>
+                <li><a target="_blank" href="{% url 'aqq:invest' tid=0 sid=0 did=0 page=1 %}">投资理财</a></li>
+                <li><a target="_blank" href="{% url 'aqq:borrow' %}" class="red">借贷专区</a></li>
+                <li><a target="_blank" href="{% url 'aqq:secure' %}">安全保障</a></li>
+                <li><a target="_blank" href="{% url 'aqq:anenst' %}">关于我们</a></li>
+                <li><a target="_blank" href="{% url 'aqq:guide' %}">新手引导</a></li>
+                <li><a target="_blank" href="{% url 'aqq:account' %}" class="my-cons"><i class="my-con"></i>我的账户</a></li>
             </ul>
         </div>
     </div>
@@ -66,15 +66,15 @@
     <!--面包屑导航-->
     <div class="crumbs" style="background-color:#f3f3f3">
         <span><a href="javascript:;" title="当前位置">当前位置：</a></span>
-        <span><a href="index.html" target="_blank" title="首页">首页</a>&nbsp;&gt;&nbsp;</span>
-        <span><a href="my-account.html" style="color: #F3270D" target="_blank" title="我的账户">我的账户</a></span>
+        <span><a href="{% url 'aqq:home' %}" target="_blank" title="首页">首页</a>&nbsp;&gt;&nbsp;</span>
+        <span><a href="{% url 'aqq:account' %}" style="color: #F3270D" target="_blank" title="我的账户">我的账户</a></span>
 
     </div>
     <div class="center">
         <!--左侧导航-->
         <div class="nav-left">
             <ul class="my-list">
-                <li class="my-own nav-one"><i class="accicon-l-1"></i><a href="my-account.html">账户首页</a></li>
+                <li class="my-own nav-one"><i class="accicon-l-1"></i><a href="{% url 'aqq:home' %}">账户首页</a></li>
                 <li class="my-own my-fund-1"><i class="accicon-l-2"></i>我的资金 <i class="accicon-r-1"></i></li>
                 <div class="my-rec-1">
                     <ul>
@@ -132,7 +132,7 @@
                         </li>
                         <li>
                             <label>充值金额</label>
-                            <input type="text" value="" class="infos" placeholder="请输入充值金额" />
+                            <input type="text" value="" class="infos" name="money" placeholder="请输入充值金额" />
                         </li>
                         <li>
                             <a href="javascript:;" class="recharge-sub">充值</a>
@@ -145,7 +145,7 @@
             <div class="recharge-suss">
                 <div class="recharge-prompt">
                     <h3><i></i>充值成功</h3>
-                    <span>账户余额 <em>0.00</em>元</span>
+                    <span>账户余额 <em>{{ money }}</em>元</span>
                 </div>
             </div>
         </div>
