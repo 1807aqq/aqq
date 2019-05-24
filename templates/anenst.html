@@ -34,9 +34,9 @@
             </div>
             <!--右边-->
             <div class="top-right">
-                <a target="_blank" href="enroll-1.html">快速注册</a>
+                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
                 <a target="_blank" href="login.html">立即登录</a>
-                <a target="_blank" href="help-center.html">帮助中心</a>
+                <a target="_blank" href="{% url 'aqq:help' %}">帮助中心</a>
             </div>
         </div>
     </div>
@@ -47,13 +47,13 @@
         </a>
         <div class="nav-list">
             <ul>
-                <li><a target="_blank" href="index.html">首页</a></li>
-                <li><a target="_blank" href="invest.html">投资理财</a></li>
-                <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
-                <li><a target="_blank" href="secure.html">安全保障</a></li>
-                <li><a target="_blank" href="anenst.html" class="red">关于我们</a></li>
-                <li><a target="_blank" href="Beginners-Guide.html">新手引导</a></li>
-                <li><a target="_blank" href="my-account.html" class="my-cons"><i class="my-con"></i>我的账户</a></li>
+     <li><a target="_blank" href="{% url 'aqq:home' %}">首页</a></li>
+                <li><a target="_blank" href="{% url 'aqq:invest' tid=0 sid=0 did=0 page=1 %}">投资理财</a></li>
+                <li><a target="_blank" href="{% url 'aqq:borrow' %}" class="red">借贷专区</a></li>
+                <li><a target="_blank" href="{% url 'aqq:secure' %}">安全保障</a></li>
+                <li><a target="_blank" href="{% url 'aqq:anenst' %}">关于我们</a></li>
+                <li><a target="_blank" href="{% url 'aqq:guide' %}">新手引导</a></li>
+                <li><a target="_blank" href="{% url 'aqq:account' %}" class="my-cons"><i class="my-con"></i>我的账户</a></li>
             </ul>
         </div>
     </div>
@@ -66,18 +66,18 @@
     <!--面包屑导航-->
     <div class="crumbs" style="background-color:#f3f3f3">
         <span><a href="javascript:;" title="当前位置">当前位置：</a></span>
-        <span><a href="index.html" target="_blank" title="首页">首页</a>&nbsp;&gt;&nbsp;</span>
-        <span><a href="anenst.html" style="color: #F3270D" title="关于我们">关于我们</a></span>
+        <span><a href="{% url 'aqq:home' %}" target="_blank" title="首页">首页</a>&nbsp;&gt;&nbsp;</span>
+        <span><a href="{% url 'aqq:anenst' %}" style="color: #F3270D" title="关于我们">关于我们</a></span>
     </div>
     <div class="center">
         <!--z左侧导航-->
         <div class="nav-left">
             <ul>
-                <li class="nav-one"><a href="anenst.html" class="red">典贷通金融</a></li>
+                <li class="nav-one"><a href="{% url 'aqq:anenst' %}" class="red">典贷通金融</a></li>
                 <li><a href="contactus.html">联系我们</a></li>
                 <li><a href="creditrating.html">信用等级</a></li>
                 <li><a href="Franchise-chain.html">连锁加盟</a></li>
-                <li><a href="press-center.html">新闻中心</a></li>
+                <li><a href="{% url 'aqq:center' %}">新闻中心</a></li>
                 <li><a href="Anno-Center.html">公告中心</a></li>
             </ul>
         </div>

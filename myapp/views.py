@@ -1,5 +1,8 @@
 
 from django.db.models import Q, Sum, Count
+from django.contrib import messages
+from django.http import JsonResponse
+
 
 
 from tonghuashun.news import *
@@ -15,34 +18,49 @@ from django.shortcuts import render, redirect
 
 from myapp.models import User
 
-
+# 注册页面
 def register(request):
     if request.method == "GET":
+        # msg = messages.get_messages(request)
+        # context = {'msg':None}
         return render(request, "enroll-1.html")
-    phone = request.POST.get('phone')
-    phone_message = request.POST.get('phone-message')
-    nickname = request.POST.get('nickname')
-    passwd = request.POST.get('pw')
-    name = request.POST.get('realname')
-    identity = request.POST.get('identity')
-    bank_num = request.POST.get('bank_num')
-    banks = request.POST.get('category')
-    city = request.POST.get('city')
-    open_bank = request.POST.get('open_bank')
-    print(phone,phone_message,passwd,name,identity,bank_num,banks,city,open_bank)
-    new_user = User()
-    new_user.nickname = nickname
-    new_user.phone = phone
-    new_user.passwd =passwd
-    new_user.name = name
-    new_user.identity = identity
-    new_user.bank_num = bank_num
-    new_user.banks = banks
-    new_user.city = city
-    new_user.open_bank = open_bank
-    new_user.save()
-    return redirect("aqq:account")
+    elif request.method == 'POST':
+        phone = request.POST.get('phone')
+        print(phone)
+        print(User.objects.filter(phone=phone))
+        if User.objects.filter(phone=phone).exists():
+            print('=====ddd====')
+            messages.add_message(request, messages.INFO, '该手机号已注册！！')
+            return redirect('aqq:register')
+        phone_message = request.POST.get('phone-message')
+        code = confirm(phone,phone_message)
+        print(code)
+        if not code:
+            messages.add_message(request, messages.INFO, '验证码错误！！')
+            return redirect('aqq:register')
+        nickname = request.POST.get('nickname')
+        passwd = request.POST.get('pw')
+        name = request.POST.get('realname')
+        identity = request.POST.get('identity')
+        bank_num = request.POST.get('bank_num')
+        banks = request.POST.get('category')
+        city = request.POST.get('city')
+        open_bank = request.POST.get('open_bank')
+        print(phone,phone_message,passwd,name,identity,bank_num,banks,city,open_bank)
+        new_user = User()
+        new_user.nickname = nickname
+        new_user.phone = phone
+        new_user.passwd =passwd
+        new_user.name = name
+        new_user.identity = identity
+        new_user.bank_num = bank_num
+        new_user.banks = banks
+        new_user.city = city
+        new_user.open_bank = open_bank
+        new_user.save()
+        return redirect("aqq:account")
 
+# 登陆页面
 def login(request):
     if request.method == "GET":
         return render(request, 'login.html')
@@ -52,7 +70,16 @@ def login(request):
         passwd = request.POST.get('password')
         print(phone,passwd,"@@@@@@@@@@@2")
         if User.objects.filter(phone=phone, passwd=passwd).exists():
-            return render(request, 'my-account.html')
+            user = User.objects.filter(phone=phone, passwd=passwd)[0]
+            if phone == user.phone and passwd == user.passwd:
+                return render(request, 'my-account.html')
+            else:
+                context = {'msg':'用户名或密码错误！！！'}
+                return render(request,'login.html',context)
+
+        else:
+            messages.add_message(request,messages.INFO,'用户名不存在！！')
+            return redirect('aqq:register')
 
 
 def my_account(request):
@@ -88,6 +115,9 @@ def go_index(request):
                       'sum_amount':sum_amount,
                        'count':count,
                        'user':user})
+
+
+
 
 
 # 进入新闻详情页
@@ -159,14 +189,6 @@ def invest(request,tid,sid,did,page):
 
 
 
-
-# 首页产品
-def index_view(request):
-    products = Product.objects.order_by('-id')[:3]
-    products1 = Product.objects.order_by('-id')[4:7]
-    for product1 in products1:
-        return render(request,'index.html', locals())
-
 # 产品详情页
 def details(request,pid):
     pro = Product.objects.get(id=int(pid))
@@ -192,13 +214,41 @@ def anenst(request):
     return render(request,'anenst.html')
 
 
+
 # 借贷专区
+
 def borrow_money(request):
     return render(request,'borrow-money.html')
 
 # 新手指南
 def  guide(request):
     return  render(request,'Beginners-Guide.html')
+
+#帮助中心
+def help(request):
+    return  render(request,'help-center.html')
+
+# 充值
+def recharge(request):
+    money = request.POST.get('money')
+    user = User()
+    user.em_contact=money
+    User.objects.filter('em_contact')
+    
+    return render(request,'my-recharge.html')
+
+#提现
+def withdraw(request):
+
+    return render(request,'my-withdraw.html')
+
+
+# 发送验证码函数
+def codes(request,phone):
+    get_code(phone)
+    return JsonResponse({
+        'code': 200,
+    })
 
 # 申请质押贷款
 def pledge(request):
@@ -251,3 +301,4 @@ def policy(request):
                 'msg':'您还未登录！！'
             }
     return render(request,'Policy-loan.html')
+

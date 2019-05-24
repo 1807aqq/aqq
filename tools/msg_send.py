@@ -9,6 +9,7 @@ def get_code(phone):
     # 随机生成
     code = ''.join([str(random.randint(0,9)) for _ in range(4)])
     # 添加到cache缓存中
+    print(code)
     cache.set(phone,code,120)  # 设置缓存cache  key 为用户手机号  value 为验证码  有效时间设置为 120 秒
     # 发送验证码
     send_sms_code(phone,code)
@@ -17,6 +18,7 @@ def confirm(phone, input_code):
     # 从缓存cache中读取phone对应的验证码
     code = cache.get(phone)
     # 和input_code进行比较，如果通过则返回True
+    print(input_code,code)
     if input_code == code:
         return True
     else:

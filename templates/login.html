@@ -52,7 +52,7 @@
 <body>
 <!--去首页-->
 <div class="home">
-    <a href="index.html" title="首页">首页</a>
+    <a href="{% url 'aqq:home' %}" title="首页">首页</a>
 </div>
 <!--宣传语-->
 <div class="language">
@@ -63,6 +63,7 @@
         <h2>账户登录</h2>
         <form method="post">
             {% csrf_token %}
+            <p style="color: #f00b0d">{{ msg }}</p>
         <div id="error_box"></div>
         <div class="input_box">
             <i class="in-name"></i>
@@ -81,7 +82,7 @@
         </div>
         <div class="for-pass">
             <a href="Forget-password.html">忘记密码</a>
-            <a href="enroll-1.html">免费注册</a>
+            <a href="{% url 'aqq:register' %}">免费注册</a>
         </div>
             </form>
     </div>
