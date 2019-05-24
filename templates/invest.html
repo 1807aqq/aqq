@@ -51,13 +51,13 @@
         <a href="index.html"><div class="logo"></div></a>
         <div class="nav-list">
             <ul>
-                <li><a target="_blank" href="index.html">首页</a></li>
+                <li><a target="_blank" href={% url 'aqq:home' %}>首页</a></li>
                 <li><a target="_blank" href="javascript:;" class="red">投资理财</a></li>
-                <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
-                <li><a target="_blank" href="secure.html">安全保障</a></li>
-                <li><a target="_blank" href="anenst.html">关于我们</a></li>
-                <li><a target="_blank" href="Beginners-Guide.html">新手引导</a></li>
-                <li><a target="_blank" href="my-account.html" class="my-cons"><i class="my-con"></i>我的账户</a></li>
+{#                <li><a target="_blank" href={% url 'aqq:borrow' %}>借贷专区</a></li>#}
+                <li><a target="_blank" href={% url 'aqq:secure' %}>安全保障</a></li>
+                <li><a target="_blank" href={% url 'aqq:anenst' %}>关于我们</a></li>
+                <li><a target="_blank" href={% url 'aqq:guide' %}>新手引导</a></li>
+                <li><a target="_blank" href={% url 'aqq:account' %} class="my-cons"><i class="my-con"></i>我的账户</a></li>
             </ul>
         </div>
     </div>
@@ -75,31 +75,30 @@
                     <li class="select-list">
                         <dl id="select1">
                             <dt>类型：</dt>
-                            <dd class="select-all selected"><a href="{% url 'aqq:invest' tid=tid sid=sid did=did %}">全部</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=1 sid=sid did=did %}">新手标</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=2 sid=sid did=did %}">质押标</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=3 sid=sid did=did %}">抵押标</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=4 sid=sid did=did %}">担保标</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=5 sid=sid did=did %}">信用标</a></dd>
+                            <dd class="select-all selected"><a href="{% url 'aqq:invest' tid=tid sid=sid did=did page=page %}">全部</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=1 sid=sid did=did page=page %}">新手标</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=2 sid=sid did=did page=page %}">质押标</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=3 sid=sid did=did page=page %}">抵押标</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=4 sid=sid did=did page=page %}">担保标</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=5 sid=sid did=did page=page %}">信用标</a></dd>
                         </dl>
                     </li>
                     <li class="select-list">
                         <dl id="select2">
                             <dt>收益：</dt>
-                            <dd class="select-all selected"><a href="{% url 'aqq:invest' tid=tid sid=sid did=did %}">全部</a></dd>
-                            <dd><a href="{% url 'aqq:invest' sid=1 tid=tid did=did %}">10%以下</a></dd>
-                            <dd><a href="{% url 'aqq:invest' sid=2 tid=tid did=did %}">10%-12%</a></dd>
-                            <dd><a href="{% url 'aqq:invest' sid=3 tid=tid did=did %}">12%以上</a></dd>
+                            <dd class="select-all selected"><a href="{% url 'aqq:invest' tid=tid sid=sid did=did page=page %}">全部</a></dd>
+                            <dd><a href="{% url 'aqq:invest' sid=1 tid=tid did=did page=page %}">11%以下</a></dd>
+                            <dd><a href="{% url 'aqq:invest' sid=2 tid=tid did=did page=page %}">11%-13%</a></dd>
+                            <dd><a href="{% url 'aqq:invest' sid=3 tid=tid did=did page=page %}">13%以上</a></dd>
                         </dl>
                     </li>
                     <li class="select-list">
                         <dl id="select3">
                             <dt>周期：</dt>
-                            <dd class="select-all selected"><a href="{% url 'aqq:invest' tid=tid sid=sid did=did %}">全部</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=tid sid=sid did=1 %}">60天以下</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=tid sid=sid did=2 %}">60-180天</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=tid sid=sid did=3 %}">180-360天</a></dd>
-                            <dd><a href="{% url 'aqq:invest' tid=tid sid=sid did=4 %}">360天以上</a></dd>
+                            <dd class="select-all selected"><a href="{% url 'aqq:invest' tid=tid sid=sid did=did page=page %}">全部</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=tid sid=sid did=1 page=page %}">24个月</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=tid sid=sid did=2 page=page %}">36个月</a></dd>
+                            <dd><a href="{% url 'aqq:invest' tid=tid sid=sid did=3 page=page %}">48个月</a></dd>
                         </dl>
                     </li>
                     <li class="select-result">
@@ -149,25 +148,27 @@
                         <h4>
                             <p>
                                 <i class="new-icon new-icon-2"></i>
-                                <a href="details.html">{{ product.name }}
+
+                                <a href="http://localhost:8000/aqq/product/?pid={{ product.id }}">{{ product.name }}
                                 </a>
-                                <em class="noviceTip">新手专享</em>
                             </p>
-                            <span>合作机构：<a href="company-details.html">{{ in_name }}</a></span>
+
+                            <span>合作机构：<a href="company-details.html">{{ product.institution.name }}</a></span>
                         </h4>
 
                     </div>
+
                     <ul>
                         <li class="railist">
                             <h2 class="red">{{ product.y_rate }}<em>%</em></h2>
                             <p>年化收益率</p>
                         </li>
                         <li class="raili">
-                            <h2>{{ product.time_limit | myEut}}<em>天</em></h2>
+                            <h2>{{ product.time_limit }}<em>个月</em></h2>
                             <p>投资周期</p>
                         </li>
                         <li>
-                            <h2>{{ product.amount | myDut}}<em>万</em></h2>
+                            <h2>{{ product.amount }}<em>万</em></h2>
                             <p>融资金额</p>
                         </li>
                         <li class="yuan"><!--统计圆-->
@@ -175,16 +176,13 @@
                             </div>
                         </li>
                         <li>
-                            <h2>{{ product.payment }}<em>万</em></h2>
+                            <h2>{{ product.amount }}<em>万</em></h2>
                             <p>还需金额</p>
                         </li>
                         <li>
-                            <h3>{{ product.time_limit | myFut }}</h3>
-                            <p>还款日期</p>
+                            <a href="http://localhost:8000/aqq/product/{{ product.id }}/" class="oncgs">正在募集</a>
                         </li>
-                        <li>
-                            <a href="details.html" class="oncgs">08日16:00开售</a>
-                        </li>
+
 
                     </ul>
                 </div>
@@ -195,7 +193,8 @@
     <!--bd-two结束-->
 
     <!--分页-->
-    <div id="pageToolbar"></div>
+    <div id="pageToolbar" ><h3><span style="margin-left: 500px;font-size: 20px " >当前第{{ page }}页</span>
+        <a href="{% url 'aqq:invest' tid=tid sid=sid did=did page=2 %}" style="color: red;font-size: 20px ">下一页</a></h3></div>
     <!--分页结束-->
 
 </div>

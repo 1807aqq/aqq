@@ -76,6 +76,12 @@ class Loan(models.Model):
     class Meta:
         db_table = 'loan'
 
+class Institutions(models.Model):
+    id = models.IntegerField(primary_key=True, null=False, auto_created=True)
+    name = models.CharField(max_length=50)
+    info = models.TextField()
+    class Meta:
+        db_table = 'institutions'
 
 
 class Product(models.Model):
@@ -92,11 +98,13 @@ class Product(models.Model):
     # 融资金额/
     amount = models.FloatField()
     # 机构id
-    institution = models.IntegerField()
+    institution = models.ForeignKey(Institutions,on_delete=models.CASCADE,related_name='pro')
     # 风险级别
     risk = models.FloatField()
     # 还款方式
     payment = models.IntegerField()
+    # 项目简介
+    info = models.TextField()
 
     class Meta:
         db_table = 'products'
@@ -151,10 +159,3 @@ class Investment(models.Model):
     class Meta:
         db_table = 'investment'
 
-
-class Institutions(models.Model):
-    id = models.IntegerField(primary_key=True, null=False, auto_created=True)
-    name = models.CharField(max_length=50)
-    info = models.TextField()
-    class Meta:
-        db_table = 'institutions'

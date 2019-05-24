@@ -9,8 +9,13 @@ urlpatterns = [
     path('home/',go_index,name='home'),
     path('details/<id>/',go_details,name = 'details'),
     path('center/',press_center,name='center'),
-    path('invest/<tid>/<sid>/<did>/',invest, name= 'invest'),
-    path('index/',index_view,name='index'),
+    path('invest/<tid>/<sid>/<did>/<page>/',invest,name= 'invest'),
+    path('product/<pid>/',details,name='product'),
+    path('secure/',secure,name='secure'),
+    path('anenst/',anenst,name='anenst'),
+    path('guide/',guide,name='guide'),
+
+
 
 ]
 

@@ -54,7 +54,8 @@
         <div class="nav-list">
             <ul>
                 <li><a target="_blank" href="javascript:;" class="red">首页</a></li>
-                <li><a target="_blank" href="{% url 'aqq:invest' tid=0 sid=0 did=0 %}">投资理财</a></li>
+
+                <li><a target="_blank" href="{% url 'aqq:invest' tid=0 sid=0 did=0 page=1 %}">投资理财</a></li>
                 <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
                 <li><a target="_blank" href="secure.html">安全保障</a></li>
                 <li><a target="_blank" href="anenst.html">关于我们</a></li>
@@ -226,12 +227,13 @@
             </div>
             <div class="new-right">
                 <ul>
-                    {% for product in products  %}
+
+                    {% for new_pro in new_pros %}
                     <li>
-                        <h4>{{ product.name }}</h4>
-                        <h1>{{ product.y_rate  | myCut}}%</h1>
-                        <p>{{ product.time_limit }}月</p>
-                        <a href="javascript:;">立即投资</a>
+                        <h4>{{ new_pro.name }}</h4>
+                        <h1>{{ new_pro.y_rate }}%</h1>
+                        <p>周期{{ new_pro.time_limit }}月</p>
+                        <a href="http://localhost:8000/aqq/product/{{ new_pro.id }}/">立即投资</a>
                     </li>
 
                     {% endfor %}
@@ -252,33 +254,37 @@
                 </div>
             </div>
             <div class="specia-right">
-                {% for product1 in products1 %}
+
+                {% for pro in pros %}
                 <div class="spec-list">
-                    <h4>{{ product1.name }}</h4>
+                    <h4>{{ pro.name }}</h4>
                     <ul>
                         <li>
-                            <h2 class="red">{{ product1.y_rate }}<em>%</em></h2>
+                            <h2 class="red">{{ pro.y_rate }}<em>%</em></h2>
                             <p>年化收益率</p>
                         </li>
                         <li>
-                            <h2>{{ product1.time_limit |myEut}}<em>天</em></h2>
+                            <h2>{{ pro.time_limit }}<em>月</em></h2>
                             <p>投资周期</p>
                         </li>
                         <li>
-                            <h2>{{ product1.amount | myDut }}<em>万</em></h2>
+                            <h2>{{ pro.amount }}<em>万</em></h2>
                             <p>融资金额</p>
                         </li>
                         <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="50%" data-info="融资进度" data-width="3"
-                                 data-fontsize="26" data-percent="50" data-fgcolor="#F4280D" data-bgcolor="#ccc"
+                            <div class="myStat" data-dimension="100" data-text="70%" data-info="融资进度" data-width="3"
+                                 data-fontsize="26" data-percent="70" data-fgcolor="#F4280D" data-bgcolor="#ccc"
                                  data-fill="#fff">
                             </div>
                         </li>
-                        <li><a href="javascript:;">立即投资</a></li>
+                        <li><a href="http://localhost:8000/aqq/product/{{ pro.id }}/">立即投资</a></li>
                     </ul>
+
                 </div>
                 {% endfor %}
-             </div>
+            </div>
+
+
         </div>
         <h3>贷款专区</h3>
         <div class="provide">
