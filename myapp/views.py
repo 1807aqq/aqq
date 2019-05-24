@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Sum, Count
 
 from tonghuashun.news import *
 
@@ -63,6 +63,8 @@ def go_index(request):
         if now_time%10 == 0:
             Downlode()
         datas = Industry.objects.all()
+        sum_amount = Product.objects.all().aggregate(Sum('amount'))
+        count = Product.objects.all().aggregate(Count('name'))
         msgs = {}
         new_pro = Product.objects.filter(type=1)
         for data in datas:
@@ -71,7 +73,12 @@ def go_index(request):
             db['title'] = data.name
             db['news_time'] = data.time
             msgs[data.ip] = db
-        return render(request, 'index.html', {'datas':msgs,'new_pros':new_pro[:3],'pros':new_pro[5:8]})
+        return render(request, 'index.html',
+                      {'datas':msgs,
+                       'new_pros':new_pro[:3],
+                       'pros':new_pro[5:8],
+                      'sum_amount':sum_amount,
+                       'count':count})
 
 
 # 进入新闻详情页
@@ -158,3 +165,6 @@ def details(request,pid):
                    'data2':data2,
                    'data3':data3})
 
+
+def borrow_money(request):
+    return render(request,'borrow-money.html')

@@ -39,8 +39,8 @@
             </div>
             <!--右边-->
             <div class="top-right">
-                <a target="_blank" href="enroll-1.html">快速注册</a>
-                <a target="_blank" href="login.html">立即登录</a>
+                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
+                <a target="_blank" href="{% url 'aqq:login' %}">立即登录</a>
                 <a target="_blank" href="help-center.html">帮助中心</a>
             </div>
         </div>
@@ -54,11 +54,11 @@
             <ul>
                 <li><a target="_blank" href="javascript:;" class="red">首页</a></li>
                 <li><a target="_blank" href="{% url 'aqq:invest' tid=0 sid=0 did=0 page=1 %}">投资理财</a></li>
-                <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
-                <li><a target="_blank" href="secure.html">安全保障</a></li>
-                <li><a target="_blank" href="anenst.html">关于我们</a></li>
-                <li><a target="_blank" href="Beginners-Guide.html">新手引导</a></li>
-                <li><a target="_blank" href="my-account.html" class="my-cons"><i class="my-con"></i>我的账户</a></li>
+                <li><a target="_blank" href="{% url 'aqq:borrow' %}">借贷专区</a></li>
+                <li><a target="_blank" href="{% url 'aqq:secure' %}">安全保障</a></li>
+                <li><a target="_blank" href="{% url 'aqq:anenst' %}">关于我们</a></li>
+                <li><a target="_blank" href="{% url 'aqq:guide' %}">新手引导</a></li>
+                <li><a target="_blank" href="{% url 'aqq:account' %}" class="my-cons"><i class="my-con"></i>我的账户</a></li>
             </ul>
         </div>
     </div>
@@ -71,9 +71,9 @@
     <div class="banner">
         <div class="slide_box">
             <ul>
-                <li class="banners-1"><a href="invest.html" target="_blank"></a></li>
-                <li class="banners-2"><a href="invest.html" target="_blank"></a></li>
-                <li class="banners-3"><a href="invest.html" target="_blank"></a></li>
+                <li class="banners-1"><a href="{% url 'aqq:invest' 0 0 0 1 %}" target="_blank"></a></li>
+                <li class="banners-2"><a href="{% url 'aqq:invest' 0 0 0 1 %}" target="_blank"></a></li>
+                <li class="banners-3"><a href="{% url 'aqq:invest' 0 0 0 1 %}" target="_blank"></a></li>
             </ul>
         </div>
         <a class="prev" href="javascript:void(0)"></a>
@@ -88,7 +88,7 @@
                 <p class="fu-num"><em>8%-12%</em></p>
                 <p>预期年化收益率</p>
                 <p class="fu-btn"><a href="{% url 'aqq:enroll' %}">快速注册</a></p>
-                <p class="fu-login"><a href="login.html">立即登录</a></p>
+                <p class="fu-login"><a href="{% url 'aqq:login' %}">立即登录</a></p>
             </div>
         </div>
     </div>
@@ -145,7 +145,7 @@
         <div class="unif-num">
             <ul>
                 <li>
-                    <p>100亿20万元</p>
+                    <p>{{ sum_amount }}</p>
                     <p>累计企业和个人融资</p>
                 </li>
                 <li>
@@ -157,7 +157,7 @@
                     <p>今日交易额</p>
                 </li>
                 <li>
-                    <p>1058</p>
+                    <p>{{ count }}</p>
                     <p>累计履约项目</p>
                 </li>
 

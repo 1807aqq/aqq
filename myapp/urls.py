@@ -11,5 +11,7 @@ urlpatterns = [
     path('center/',press_center,name='center'),
     path('invest/<tid>/<sid>/<did>/<page>/',invest,name= 'invest'),
     path('product/<pid>/',details,name='product'),
+    path('borrow/',borrow_money,name='borrow'),
+
 ]
 
