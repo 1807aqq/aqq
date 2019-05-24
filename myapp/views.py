@@ -2,18 +2,17 @@
 from django.db.models import Q, Sum, Count
 from django.contrib import messages
 from django.http import JsonResponse
-
+from django.urls import reverse
 
 from tonghuashun.news import *
 
 from myapp.models import User, Industry ,Product ,Institutions
 
 from tools.msg_send import get_code, confirm
-
+from tools.Is_login import is_login
 import time
 
 from django.shortcuts import render, redirect
-
 
 from myapp.models import User
 
@@ -71,8 +70,9 @@ def login(request):
         if User.objects.filter(phone=phone, passwd=passwd).exists():
             user = User.objects.filter(phone=phone, passwd=passwd)[0]
             if phone == user.phone and passwd == user.passwd:
-                request.session['uid']=user.uid
-                return render(request, 'my-account.html')
+
+                return redirect(reverse('aqq:account'))
+
             else:
                 context = {'msg':'用户名或密码错误！！！'}
                 return render(request,'login.html',context)
@@ -83,11 +83,14 @@ def login(request):
 
 
 def my_account(request):
-    return render(request, 'my-account.html')
+    user = is_login(request)
+    return render(request, 'my-account.html',{'user':user})
 
 
 # 进入首页
 def go_index(request):
+    user = is_login(request)
+    print('@@@@@@@@@@@',user)
     if request.method == 'GET':
         now_time = time.localtime().tm_min
         if now_time%10 == 0:
@@ -108,7 +111,8 @@ def go_index(request):
                        'new_pros':new_pro[:3],
                        'pros':new_pro[5:8],
                       'sum_amount':sum_amount,
-                       'count':count})
+                       'count':count,
+                       'user':user})
 
 
 
@@ -116,6 +120,7 @@ def go_index(request):
 
 # 进入新闻详情页
 def go_details(request,id):
+    user = is_login(request)
     msg = Industry.objects.filter(ip=id)[0]
     title = msg.name
     time = msg.time
@@ -124,6 +129,7 @@ def go_details(request,id):
 
 # 新闻中心
 def press_center(request):
+    user = is_login(request)
     datas = Industry.objects.all()
     msgs = {}
     for data in datas:
@@ -133,10 +139,11 @@ def press_center(request):
         db['info'] = ','.join(re.findall(r'[\u4e00-\u9fa5]{10}',msg))[:50]
         db['title'] = data.name
         msgs[data.ip] = db
-    return render(request, 'press-center.html', {'datas': msgs})
+    return render(request, 'press-center.html', {'datas': msgs,'user':user})
 
 # 投资理财页面
 def invest(request,tid,sid,did,page):
+    user = is_login(request)
     if request.method == 'GET':
         type_list = ['type=1','type=2','type=3','type=4','type=5']
         rate_list = ['y_rate__lt=11', 'y_rate__gt=11,y_rate__lt=13', 'y_rate__gt=13']
@@ -153,7 +160,8 @@ def invest(request,tid,sid,did,page):
             else:
                 filters.append(select[k][1][int(select[k][0])-1])
         data = {}
-        m = int(page) * 8
+        newpage = int(page)
+        m = newpage * 8
         if len(filters) > 0:
             for i in filters:
                 if ',' in i:
@@ -170,13 +178,14 @@ def invest(request,tid,sid,did,page):
 
         else:
             produces = Product.objects.all()[m-8:m]
-
+        newpage +=1
         data = {
             'products': produces,
             'tid': tid,
             'sid': sid,
             'did': did,
-            'page':page
+            'page':newpage,
+            'user':user
         }
         return render(request,'invest.html',data)
 
@@ -184,6 +193,8 @@ def invest(request,tid,sid,did,page):
 
 # 产品详情页
 def details(request,pid):
+    user = is_login(request)
+
     pro = Product.objects.get(id=int(pid))
     pay = ['先息后本','先本后息','等额本金','等额本息']
     payment = pay[pro.payment-1]
@@ -197,46 +208,125 @@ def details(request,pid):
                    'payment':payment,
                    'data1':data1,
                    'data2':data2,
-                   'data3':data3})
+                   'data3':data3,
+                   'user':user})
 # 安全保障
 def secure(request):
-    return render(request,'secure.html')
+    user = is_login(request)
+    return render(request,'secure.html',{'user':user})
 
 # 关于我们
 def anenst(request):
-    return render(request,'anenst.html')
+    user = is_login(request)
+    return render(request,'anenst.html',{'user':user})
+
+
+
+# 借贷专区
 
 def borrow_money(request):
-    return render(request,'borrow-money.html')
+    user = is_login(request)
+    return render(request,'borrow-money.html',{'user':user})
 
 # 新手指南
 def  guide(request):
-    return  render(request,'Beginners-Guide.html')
+    user = is_login(request)
+    return  render(request,'Beginners-Guide.html',{'user':user})
 
 #帮助中心
 def help(request):
-    return  render(request,'help-center.html')
+    user = is_login(request)
+    return  render(request,'help-center.html',{'user':user})
 
 # 充值
 def recharge(request):
+    user = is_login(request)
+
     money = request.POST.get('money')
-    user = User()
+
     user.em_contact=money
     User.objects.filter('em_contact')
     
-    return render(request,'my-recharge.html')
+    return render(request,'my-recharge.html',{'user':user})
 
 #提现
 def withdraw(request):
-
-    return render(request,'my-withdraw.html')
+    user = is_login(request)
+    return render(request,'my-withdraw.html',{'user':user})
 
 
 # 发送验证码函数
 def codes(request,phone):
+    user = is_login(request)
     get_code(phone)
     return JsonResponse({
         'code': 200,
     })
 
-# 投资理财专区
+
+
+# 申请质押贷款
+def pledge(request):
+    user = is_login(request)
+    if request.method == 'GET':
+        return render(request,'Pledge-loan.html',{'user':user})
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！',
+                'user': user
+            }
+    return render(request,'Pledge-loan.html',data)
+
+# 申请抵押贷
+def mortgage(request):
+    user = is_login(request)
+    if request.method == 'GET':
+        return render(request,'mortgage-loan.html',{'user':user})
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！',
+                'user': user
+            }
+    return render(request,'mortgage-loan.html',data)
+
+
+# 申请创业贷
+def venture(request):
+    user = is_login(request)
+    if request.method == 'GET':
+        return render(request,'Venture-loan.html',{'user':user})
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！',
+                'user': user
+            }
+    return render(request,'Venture-loan.html',data)
+
+# 申请保单贷
+def policy(request):
+    user = is_login(request)
+    if request.method == 'GET':
+        return render(request,'Policy-loan.html',{'user':user})
+    elif request.method == 'POST':
+        if request.user:
+            pass
+        else:
+            data={
+                'msg':'您还未登录！！',
+                'user': user
+            }
+    return render(request,'Policy-loan.html',data)
+
+def logout(request):
+    request.session.flush()
+    return redirect(reverse('aqq:home'))
+

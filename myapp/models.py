@@ -37,13 +37,13 @@ class User(models.Model):
     home = models.BooleanField(blank=True,null=True)
     # 是否买车
     car = models.BooleanField(blank=True,null=True)
-    # 紧急联系人电话
+    # 已修改----账户余额
     em_contact = models.CharField(max_length=30,blank=True,null=True)
 
     class Meta:
         db_table = 'user'
 
-
+#借贷表
 class Loan(models.Model):
     id = models.IntegerField(primary_key=True)
     # 用户ID

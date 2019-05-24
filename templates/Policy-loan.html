@@ -33,11 +33,19 @@
 
             </div>
             <!--右边-->
+            {% if user %}
             <div class="top-right">
-                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
-                <a target="_blank" href="login.html">立即登录</a>
-                <a target="_blank" href="{% url 'aqq:help' %}" class="red">帮助中心</a>
+                <a target="_blank" href="{% url 'aqq:account' %}">您好！{{ user.name }}</a>
+                <a target="_blank" href="{% url 'aqq:logout' %}">退出</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
             </div>
+            {% else %}
+                <div class="top-right">
+                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
+                <a target="_blank" href="{% url 'aqq:login' %}">立即登录</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!--LOGO及导航-->
@@ -165,7 +173,7 @@
             <li>
                 <a href="company-details.html" class="com-list-a">
                     <div class="state-pic">
-                        <img src="../static/img/xinwang.jpg" alt="鑫旺典当" title="鑫旺典当">
+                        <img src="/static/img/xinwang.jpg" alt="鑫旺典当" title="鑫旺典当">
                     </div>
                     <h4>内蒙古鑫旺典当有限责任公司</h4>
                     <p>注册资金：2000万元</p>
@@ -176,7 +184,7 @@
             <li>
                 <a href="company-details.html" class="com-list-a">
                     <div class="state-pic">
-                        <img src="../static/img/yilong.jpg" alt="典贷通" title="典贷通">
+                        <img src="/static/img/yilong.jpg" alt="典贷通" title="典贷通">
                     </div>
                     <h4>承德益隆典当有限责任公司</h4>
                     <p>注册资金：5000万元</p>
@@ -187,7 +195,7 @@
             <li>
                 <a href="company-details.html" class="com-list-a">
                     <div class="state-pic">
-                        <img src="../static/img/liushun.jpg" alt="典贷通" title="典贷通">
+                        <img src="/static/img/liushun.jpg" alt="典贷通" title="典贷通">
                     </div>
                     <h4>河北六顺小额贷款有限责任公司</h4>
                     <p>注册资金：5000万元</p>
@@ -198,7 +206,7 @@
             <li>
                 <a href="company-details.html" class="com-list-a">
                     <div class="state-pic">
-                        <img src="../static/img/mengxin.jpg" alt="典贷通" title="典贷通">
+                        <img src="/static/img/mengxin.jpg" alt="典贷通" title="典贷通">
                     </div>
                     <h4>内蒙古蒙信小额贷款有限责任公司</h4>
                     <p>注册资金：2000万元</p>
