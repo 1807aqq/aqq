@@ -18,5 +18,8 @@ urlpatterns = [
     path('help/',help,name='help'),
     path('recharge/',recharge,name='recharge'),
     path('withdraw/',withdraw,name='withdraw'),
+    path('login/',login,name='login'),
+    path('register/',register,name='register'),
+    path('getcode/<phone>/',codes,name='codes')
 ]
 
