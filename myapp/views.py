@@ -1,7 +1,8 @@
+import random
 
 from tonghuashun.news import *
 
-from myapp.models import User, Industry ,Product
+from myapp.models import *
 from tools.msg_send import get_code, confirm
 
 import time
@@ -97,22 +98,32 @@ def press_center(request):
 # 投资理财页面
 def invest(request,tid,sid,did):
     if request.method == 'GET':
-        select = {'tid':tid,'sid':sid,'did':did}
-        for k in select:
-            if select[k] == '0':
-                select.pop(k)
-        produces = Product.objects.filter()
+        pass
+
 
 
         data = {
-            'products':produces,
+
             'tid':0,
             'sid':0,
             'did':0
         }
 
-        return render(request,'invest.html',data)
 
+    products = Product.objects.order_by('id')[:7]
+    organization = Institutions.objects.all()
+    for product in products:
+        in_name = random.choice(organization).name
+    return render(request,'invest.html',locals())
+
+
+
+# 首页产品
+def index_view(request):
+    products = Product.objects.order_by('-id')[:3]
+    products1 = Product.objects.order_by('-id')[4:7]
+    for product1 in products1:
+        return render(request,'index.html', locals())
 
 
 def details(request):

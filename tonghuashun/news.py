@@ -9,10 +9,10 @@ from tools import headers
 import base64
 
 msg = {
-        'host':'10.12.152.85',
+        'host':'10.12.152.206',
         'port':3306,
         'user':'root',
-        'password':'0314',
+        'password':'qwl123',
         'db':'aqq',
         'charset':'utf8'
 }

@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-
 ]
 
 MIDDLEWARE = [
@@ -67,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': { 'myCut':'myapp.templatetags',}
         },
     },
 ]
@@ -81,10 +81,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'aqq',
-        'HOST':'10.12.152.85',
+        'HOST':'10.12.152.206',
         'PORT':3306,
         'USER':'root',
-        'PASSWORD':'0314',
+        'PASSWORD':'qwl123',
     }
 }
 

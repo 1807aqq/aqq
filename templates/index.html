@@ -1,4 +1,5 @@
  <!DOCTYPE html>
+{% load register %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -53,7 +54,7 @@
         <div class="nav-list">
             <ul>
                 <li><a target="_blank" href="javascript:;" class="red">首页</a></li>
-                <li><a target="_blank" href="{% url 'aqq:invest' %}">投资理财</a></li>
+                <li><a target="_blank" href="{% url 'aqq:invest' tid=0 sid=0 did=0 %}">投资理财</a></li>
                 <li><a target="_blank" href="borrow-money.html">借贷专区</a></li>
                 <li><a target="_blank" href="secure.html">安全保障</a></li>
                 <li><a target="_blank" href="anenst.html">关于我们</a></li>
@@ -225,24 +226,15 @@
             </div>
             <div class="new-right">
                 <ul>
+                    {% for product in products  %}
                     <li>
-                        <h4>权健质押借款</h4>
-                        <h1>11.0%</h1>
-                        <p>周期60天</p>
+                        <h4>{{ product.name }}</h4>
+                        <h1>{{ product.y_rate  | myCut}}%</h1>
+                        <p>{{ product.time_limit }}月</p>
                         <a href="javascript:;">立即投资</a>
                     </li>
-                    <li>
-                        <h4>权健质押借款</h4>
-                        <h1>11.0%</h1>
-                        <p>周期60天</p>
-                        <a href="javascript:;">立即投资</a>
-                    </li>
-                    <li>
-                        <h4>权健质押借款</h4>
-                        <h1>11.0%</h1>
-                        <p>周期60天</p>
-                        <a href="javascript:;">立即投资</a>
-                    </li>
+
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -260,19 +252,20 @@
                 </div>
             </div>
             <div class="specia-right">
+                {% for product1 in products1 %}
                 <div class="spec-list">
-                    <h4>权健质押借款权健质押借款权健质押借款权健质押借款权健质押借款权健质押借款</h4>
+                    <h4>{{ product1.name }}</h4>
                     <ul>
                         <li>
-                            <h2 class="red">11.0<em>%</em></h2>
+                            <h2 class="red">{{ product1.y_rate }}<em>%</em></h2>
                             <p>年化收益率</p>
                         </li>
                         <li>
-                            <h2>120<em>天</em></h2>
+                            <h2>{{ product1.time_limit |myEut}}<em>天</em></h2>
                             <p>投资周期</p>
                         </li>
                         <li>
-                            <h2>8<em>万</em></h2>
+                            <h2>{{ product1.amount | myDut }}<em>万</em></h2>
                             <p>融资金额</p>
                         </li>
                         <li class="yuan"><!--统计圆-->
@@ -284,57 +277,8 @@
                         <li><a href="javascript:;">立即投资</a></li>
                     </ul>
                 </div>
-                <div class="spec-list">
-                    <h4>权健质押借款权健质押借款权健质押借款权健质押借款权健质押借款权健质押借款</h4>
-                    <ul>
-                        <li>
-                            <h2 class="red">11.0<em>%</em></h2>
-                            <p>年化收益率</p>
-                        </li>
-                        <li>
-                            <h2>120<em>天</em></h2>
-                            <p>投资周期</p>
-                        </li>
-                        <li>
-                            <h2>8<em>万</em></h2>
-                            <p>融资金额</p>
-                        </li>
-                        <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="70%" data-info="融资进度" data-width="3"
-                                 data-fontsize="26" data-percent="70" data-fgcolor="#F4280D" data-bgcolor="#ccc"
-                                 data-fill="#fff">
-                            </div>
-                        </li>
-                        <li><a href="javascript:;">立即投资</a></li>
-                    </ul>
-                </div>
-                <div class="spec-list">
-                    <h4>权健质押借款权健质押借款权健质押借款权健质押借款权健质押借款权健质押借款</h4>
-                    <ul>
-                        <li>
-                            <h2 class="red">11.0<em>%</em></h2>
-                            <p>年化收益率</p>
-                        </li>
-                        <li>
-                            <h2>120<em>天</em></h2>
-                            <p>投资周期</p>
-                        </li>
-                        <li>
-                            <h2>8<em>万</em></h2>
-                            <p>融资金额</p>
-                        </li>
-                        <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="80%" data-info="融资进度" data-width="3"
-                                 data-fontsize="26" data-percent="80" data-fgcolor="#F4280D" data-bgcolor="#ccc"
-                                 data-fill="#fff">
-                            </div>
-                        </li>
-                        <li><a href="javascript:;">立即投资</a></li>
-                    </ul>
-                </div>
-            </div>
-
-
+                {% endfor %}
+             </div>
         </div>
         <h3>贷款专区</h3>
         <div class="provide">

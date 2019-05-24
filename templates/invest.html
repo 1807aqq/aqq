@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load register %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -142,30 +143,31 @@
         <!--投资理财-->
         <div class="specialty">
             <div class="specia-right">
+                {% for product in products %}
                 <div class="spec-list spec-over">
                     <div class="spec-title">
                         <h4>
                             <p>
                                 <i class="new-icon new-icon-2"></i>
-                                <a href="details.html">质押借款权健质健质押押借款权健质押借款权健质押借款
+                                <a href="details.html">{{ product.name }}
                                 </a>
                                 <em class="noviceTip">新手专享</em>
                             </p>
-                            <span>合作机构：<a href="company-details.html">百达兴业百达兴业达兴业达兴业</a></span>
+                            <span>合作机构：<a href="company-details.html">{{ in_name }}</a></span>
                         </h4>
 
                     </div>
                     <ul>
                         <li class="railist">
-                            <h2 class="red">11.0<em>%</em></h2>
+                            <h2 class="red">{{ product.y_rate }}<em>%</em></h2>
                             <p>年化收益率</p>
                         </li>
                         <li class="raili">
-                            <h2>120<em>天</em></h2>
+                            <h2>{{ product.time_limit | myEut}}<em>天</em></h2>
                             <p>投资周期</p>
                         </li>
                         <li>
-                            <h2>8<em>万</em></h2>
+                            <h2>{{ product.amount | myDut}}<em>万</em></h2>
                             <p>融资金额</p>
                         </li>
                         <li class="yuan"><!--统计圆-->
@@ -173,11 +175,11 @@
                             </div>
                         </li>
                         <li>
-                            <h2>4<em>万</em></h2>
+                            <h2>{{ product.payment }}<em>万</em></h2>
                             <p>还需金额</p>
                         </li>
                         <li>
-                            <h3>2016-12-22</h3>
+                            <h3>{{ product.time_limit | myFut }}</h3>
                             <p>还款日期</p>
                         </li>
                         <li>
@@ -186,220 +188,7 @@
 
                     </ul>
                 </div>
-                <div class="spec-list spec-over">
-                    <div class="spec-title">
-                        <h4>
-                            <p>
-                                <i class="new-icon new-icon-2"></i>
-                                <a href="details.html">质押借款权健质健质押押借款权健质押借款权健质押借款
-                                </a>
-                            </p>
-                            <span>合作机构：<em><a href="company-details.html">百达兴业百达兴业达兴业达兴业</a></em></span>
-                        </h4>
-
-                    </div>
-                    <ul>
-
-                        <li class="railist">
-                            <h2 class="red">11.0<em>%</em></h2>
-                            <p>年化收益率</p>
-                        </li>
-                        <li class="raili">
-                            <h2>120<em>天</em></h2>
-                            <p>投资周期</p>
-                        </li>
-                        <li>
-                            <h2>8<em>万</em></h2>
-                            <p>融资金额</p>
-                        </li>
-                        <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="50%"  data-info="融资进度" data-width="3" data-fontsize="26" data-percent="50" data-fgcolor="#F4280D" data-bgcolor="#ccc">
-                            </div>
-                        </li>
-                        <li>
-                            <h2>4<em>万</em></h2>
-                            <p>还需金额</p>
-                        </li>
-                        <li>
-                            <h3>2016-12-22</h3>
-                            <p>还款日期</p>
-                        </li>
-                        <li>
-                            <a href="details.html" class="onces">立即投资</a>
-                        </li>
-
-                    </ul>
-                </div>
-                <div class="spec-list spec-over">
-                    <div class="spec-title">
-                        <h4>
-                            <p>
-                                <i class="new-icon new-icon-2"></i>
-                                <a href="details.html">质押借款权健质健质押押借款权健质押借款权健质押借款
-                                </a>
-                            </p>
-                            <span>合作机构：<em><a href="company-details.html">百达兴业百达兴业达兴业达兴业</a></em></span>
-                        </h4>
-                    </div>
-                    <ul>
-
-                        <li>
-                            <h2 class="red">11.0<em>%</em></h2>
-                            <p>年化收益率</p>
-                        </li>
-                        <li>
-                            <h2>120<em>天</em></h2>
-                            <p>投资周期</p>
-                        </li>
-                        <li>
-                            <h2>8<em>万</em></h2>
-                            <p>融资金额</p>
-                        </li>
-                        <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="50%"  data-info="融资进度" data-width="3" data-fontsize="26" data-percent="50" data-fgcolor="#F4280D" data-bgcolor="#ccc">
-                            </div>
-                        </li>
-                        <li>
-                            <h2>4<em>万</em></h2>
-                            <p>还需金额</p>
-                        </li>
-                        <li>
-                            <h3>2016-12-22</h3>
-                            <p>还款日期</p>
-                        </li>
-                        <li>
-                            <a href="details.html" class="onces">立即投资</a>
-                        </li>
-
-                    </ul>
-                </div>
-                <div class="spec-list spec-over">
-                    <div class="spec-title">
-                        <h4>
-                            <p>
-                                <i class="new-icon new-icon-3"></i>
-                                <a href="details.html">质押借款权健质健质押押借款权健质押借款权健质押借款
-                                </a>
-                            </p>
-                            <span>合作机构：<em><a href="company-details.html">百达兴业百达兴业达兴业达兴业</a></em></span>
-                        </h4>
-                    </div>
-                    <ul>
-                        <li>
-                            <h2 class="red">11.0<em>%</em></h2>
-                            <p>年化收益率</p>
-                        </li>
-                        <li>
-                            <h2>120<em>天</em></h2>
-                            <p>投资周期</p>
-                        </li>
-                        <li>
-                            <h2>8<em>万</em></h2>
-                            <p>融资金额</p>
-                        </li>
-                        <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="50%"  data-info="融资进度" data-width="3" data-fontsize="26" data-percent="50" data-fgcolor="#F4280D" data-bgcolor="#ccc">
-                            </div>
-                        </li>
-                        <li>
-                            <h2>4<em>万</em></h2>
-                            <p>还需金额</p>
-                        </li>
-                        <li>
-                            <h3>2016-12-22</h3>
-                            <p>还款日期</p>
-                        </li>
-                        <li>
-                            <a href="details.html" class="onces">立即投资</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--还款中-->
-                <div class="spec-list spec-over">
-                    <div class="spec-title">
-                        <h4>
-                            <p>
-                                <i class="new-icon new-icon-4"></i>
-                                <a href="details.html">质押借款权健质健质押押借款权健质押借款权健质押借款
-                                </a>
-                            </p>
-                            <span>合作机构：<em><a href="company-details.html">百达兴业百达兴业达兴业达兴业</a></em></span>
-                        </h4>
-                    </div>
-                    <ul>
-                        <li>
-                            <h2 class="red">11.0<em>%</em></h2>
-                            <p>年化收益率</p>
-                        </li>
-                        <li>
-                            <h2>120<em>天</em></h2>
-                            <p>投资周期</p>
-                        </li>
-                        <li>
-                            <h2>8<em>万</em></h2>
-                            <p>融资金额</p>
-                        </li>
-                        <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="100%"  data-info="融资进度" data-width="3" data-fontsize="26" data-percent="100" data-fgcolor="#F4280D" data-bgcolor="#ccc">
-                            </div>
-                        </li>
-                        <li>
-                            <h2>4<em>万</em></h2>
-                            <p>还需金额</p>
-                        </li>
-                        <li>
-                            <h3>2016-12-22</h3>
-                            <p>还款日期</p>
-                        </li>
-                        <li>
-                            <a href="details.html" class="onchs">还款中</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--还款中-->
-                <div class="spec-list spec-over">
-                    <div class="spec-title">
-                        <h4>
-                            <p>
-                                <i class="new-icon new-icon-5"></i>
-                                <a href="details.html">质押借款权健质健质押押借款权健质押借款权健质押借款
-                                </a>
-                            </p>
-                            <span>合作机构：<em><a href="company-details.html">百达兴业百达兴业达兴业达兴业</a></em></span>
-                        </h4>
-                    </div>
-                    <ul>
-                        <li>
-                            <h2 class="red">11.0<em>%</em></h2>
-                            <p>年化收益率</p>
-                        </li>
-                        <li>
-                            <h2>120<em>天</em></h2>
-                            <p>投资周期</p>
-                        </li>
-                        <li>
-                            <h2>8<em>万</em></h2>
-                            <p>融资金额</p>
-                        </li>
-                        <li class="yuan"><!--统计圆-->
-                            <div class="myStat" data-dimension="100" data-text="100%"  data-info="融资进度" data-width="3" data-fontsize="26" data-percent="100" data-fgcolor="#999" data-bgcolor="#ccc">
-                            </div>
-                        </li>
-                        <li>
-                            <h2>0<em>万</em></h2>
-                            <p>还需金额</p>
-                        </li>
-                        <li>
-                            <h3>2016-12-22</h3>
-                            <p>还款日期</p>
-                        </li>
-                        <li>
-                            <a href="details.html" class="onchs">还款成功</a>
-                        </li>
-
-                    </ul>
-                </div>
-
+                {% endfor %}
             </div>
         </div>
     </div>
