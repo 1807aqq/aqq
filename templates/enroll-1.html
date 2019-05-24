@@ -87,14 +87,19 @@
         </div>
         <!--表单-->
         <div class="form">
-            <form method="post">
+            <form method="post" action="{% url 'aqq:register' %}">
                 {% csrf_token %}
+                {% for message in messages %}
+                    <p style="color: #f00b0d">{{ message }}</p>
+            {% endfor %}
+
                 <div class="div-pho">
                     <label for="phone">手机</label><input type="text" id="phone" name="phone" class="infos" placeholder="请输入手机号" />
                 </div>
                 <div class="div-phone">
                     <label>短信验证码</label><input type="text" id="phone-message" name="phone-message" class="infos" placeholder="请输入验证码" />
-                    <a href="javascript:;" class="send1" onclick="sends.send();">发送验证码</a>
+{#                    <a href="javascript:;" class="send1" onclick="sends.send();">发送验证码</a>#}
+                    <a href="#" ><button type="button" onclick="getCode(this)" class="btn btn-info send1">获取验证码</button></a>
                 </div>
                 <div class="div-ranks">
                     <label for="ranks">登陆密码</label><input type="password" id="ranks" class="infos" name="pw" placeholder="请设置登陆密码"  />
@@ -133,7 +138,7 @@
                     <button type="submit" class="conform" id="submit" style="font-size:large">注册</button>
                 </div>
                 <div class="div-login">
-                    <span style="margin-left: 110px">已有账户，<a href="login.html" style="color: #F3270D;">直接登录</a></span>
+                    <span style="margin-left: 110px">已有账户，<a href="{% url 'aqq:login' %}" style="color: #F3270D;">直接登录</a></span>
                 </div>
             </form>
         </div>
@@ -155,4 +160,35 @@
 </div>
 
 </body>
+<script>
+        var delay = 60;
+        var interval_id = 0;
+
+        function getCode(btn) {
+            if (delay != 60) return;
+
+            phonenum = $('#phone').val();
+            console.log(phonenum)
+            url = '/aqq/getcode/' + phonenum+'/';
+            $.getJSON(url, function (data) {
+                if (data.code == 200) {
+                    $(btn).removeClass('btn-info');
+                    $(btn).addClass('disabled');
+                    interval_id = setInterval(function () {
+                        btn.innerHTML = delay + '秒';
+                        delay--;
+                        if (delay == 0) {
+                            clearInterval(interval_id);
+                            $(btn).removeClass('disabled');
+                            $(btn).addClass('btn-info');
+                            delay = 60;
+                            btn.innerHTML = '获取验证码'
+                        }
+                    }, 1000)
+                }
+            })
+
+        }
+
+    </script>
 </html>

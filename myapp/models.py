@@ -22,23 +22,23 @@ class User(models.Model):
     # 用户开户行
     open_bank = models.CharField(max_length=50)
     # 用户地址
-    address = models.CharField(max_length=200)
+    address = models.CharField(max_length=200,blank=True,null=True)
     # 教育信息
-    edu = models.CharField(max_length=50)
+    edu = models.CharField(max_length=50,blank=True,null=True)
     # 毕业学校
-    school = models.CharField(max_length=30)
+    school = models.CharField(max_length=30,blank=True,null=True)
     # 婚姻状态
-    marriage = models.CharField(max_length=10)
+    marriage = models.CharField(max_length=10,blank=True,null=True)
     # 公司信息
-    company = models.CharField(max_length=50)
+    company = models.CharField(max_length=50,blank=True,null=True)
     # 工资
-    salary = models.IntegerField()
+    salary = models.IntegerField(blank=True,null=True)
     # 是否买房
-    home = models.BooleanField()
+    home = models.BooleanField(blank=True,null=True)
     # 是否买车
-    car = models.BooleanField()
+    car = models.BooleanField(blank=True,null=True)
     # 紧急联系人电话
-    em_contact = models.CharField(max_length=30)
+    em_contact = models.CharField(max_length=30,blank=True,null=True)
 
     class Meta:
         db_table = 'user'
