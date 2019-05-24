@@ -471,6 +471,8 @@
     /*border: none;*/
     color: #ddd;
 }
-
+#pageToolbar {
+    margin-left: 200px;
+}
 /*分页结束*/
 

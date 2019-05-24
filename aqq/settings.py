@@ -81,10 +81,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'aqq',
-        'HOST':'10.12.152.85',
+        'HOST':'10.12.152.206',
         'PORT':3306,
         'USER':'root',
-        'PASSWORD':'0314',
+        'PASSWORD':'qwl123',
     }
 }
 
