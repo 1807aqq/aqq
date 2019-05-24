@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 from django.db.models import Q, Sum, Count
+=======
+
+
+from django.db.models import Q
+>>>>>>> wzy
 
 from tonghuashun.news import *
 
 from myapp.models import User, Industry ,Product ,Institutions
+
 from tools.msg_send import get_code, confirm
 
 import time
@@ -148,6 +155,15 @@ def invest(request,tid,sid,did,page):
         return render(request,'invest.html',data)
 
 
+
+
+# 首页产品
+def index_view(request):
+    products = Product.objects.order_by('-id')[:3]
+    products1 = Product.objects.order_by('-id')[4:7]
+    for product1 in products1:
+        return render(request,'index.html', locals())
+
 # 产品详情页
 def details(request,pid):
     pro = Product.objects.get(id=int(pid))
@@ -164,7 +180,20 @@ def details(request,pid):
                    'data1':data1,
                    'data2':data2,
                    'data3':data3})
+# 安全保障
+def secure(request):
+    return render(request,'secure.html')
 
+# 关于我们
+def anenst(request):
+    return render(request,'anenst.html')
+
+<<<<<<< HEAD
 
 def borrow_money(request):
     return render(request,'borrow-money.html')
+=======
+# 新手指南
+def  guide(request):
+    return  render(request,'Beginners-Guide.html')
+>>>>>>> wzy
