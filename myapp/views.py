@@ -47,7 +47,7 @@ def login(request):
     if request.method == "GET":
         return render(request, 'login.html')
 
-    if request.method == "POST":
+    elif request.method == "POST":
         phone = request.POST.get('name')
         passwd = request.POST.get('password')
         print(phone,passwd,"@@@@@@@@@@@2")

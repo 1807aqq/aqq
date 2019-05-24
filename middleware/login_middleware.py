@@ -18,4 +18,4 @@ class LoginMiddleware(MiddlewareMixin):  # 自定义登录中间件
             else:
                 messages.add_message(request,level=messages.INFO,message='您还未登录!!')
 
-                return redirect(reverse('aqq:login'))
+                return redirect(reverse())
