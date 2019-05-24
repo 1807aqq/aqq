@@ -39,9 +39,10 @@
 
             </div>
             <!--右边-->
-            {% if user == AnonymousUser %}
+            {% if user %}
             <div class="top-right">
-                <a target="_blank" href="{% url 'aqq:enroll' %}">您好！{{ user.name }}</a>
+                <a target="_blank" href="{% url 'aqq:account' %}">您好！{{ user.name }}</a>
+                <a target="_blank" href="{% url 'aqq:logout' %}">退出</a>
                 <a target="_blank" href="help-center.html">帮助中心</a>
             </div>
             {% else %}

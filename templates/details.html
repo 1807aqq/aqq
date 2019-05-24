@@ -39,11 +39,19 @@
 
             </div>
             <!--右边-->
+            {% if user %}
             <div class="top-right">
-                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
-                <a target="_blank" href="login.html">立即登录</a>
-                <a target="_blank" href="{% url 'aqq:help' %}">帮助中心</a>
+                <a target="_blank" href="{% url 'aqq:account' %}">您好！{{ user.name }}</a>
+                <a target="_blank" href="{% url 'aqq:logout' %}">退出</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
             </div>
+            {% else %}
+                <div class="top-right">
+                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
+                <a target="_blank" href="{% url 'aqq:login' %}">立即登录</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!--LOGO及导航-->
@@ -121,6 +129,7 @@
         <div class="project-right">
             <!--登录状态-->
             <div class="por-nums">
+                {% if user %}
                 <ul>
                     <li>
                         <span>可投金额 &nbsp;</span><em> 444,000.00</em><span>元</span>
@@ -133,17 +142,12 @@
                         <a href="{% url 'aqq:recharge' %}">充值</a>
                     </li>
                 </ul>
+                {% endif %}
                 <input style="display:none;padding-left: 10px; font-size: 16px" type="text" title="请输入投资金额" autofocus placeholder="请输入投资金额：100元起投">
                 <div class="time-item" style="font-size: 30px;font-weight: 700;margin: 50px 0 0 20px;display: block">
-                    <!--<span id="day_show">0天</span>-->
-                    <!--<strong id="hour_show">0时</strong>
-                    <strong id="minute_show">0分</strong>
-                    <strong id="second_show">0秒</strong>-->
-                    <strong id="onLineDate">00:00:00</strong>
-
                 </div>
                 <a href="{http://localhost:8000/aqq/product/{{ pid }}/" class="promptly" style="display: none">立即投资</a>
-                <a href="javascript:;" class="promptlygs" title="敬请期待" >敬请期待</a>
+                <a href="javascript:;" class="promptlygs" title="敬请期待" >立即投资</a>
             </div>
             <!--未登录状态-->
             <div class="por-nums" style="display: none">

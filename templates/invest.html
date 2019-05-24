@@ -39,11 +39,19 @@
 
             </div>
             <!--右边-->
+            {% if user %}
             <div class="top-right">
-                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
-                <a target="_blank" href="login.html">立即登录</a>
-                <a target="_blank" href="{% url 'aqq:help' %}" class="red">帮助中心</a>
+                <a target="_blank" href="{% url 'aqq:account' %}">您好！{{ user.name }}</a>
+                <a target="_blank" href="{% url 'aqq:logout' %}">退出</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
             </div>
+            {% else %}
+                <div class="top-right">
+                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
+                <a target="_blank" href="{% url 'aqq:login' %}">立即登录</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!--LOGO及导航-->
