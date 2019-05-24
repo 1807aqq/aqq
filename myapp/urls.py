@@ -20,6 +20,11 @@ urlpatterns = [
     path('withdraw/',withdraw,name='withdraw'),
     path('login/',login,name='login'),
     path('register/',register,name='register'),
-    path('getcode/<phone>/',codes,name='codes')
+    path('getcode/<phone>/',codes,name='codes'),
+    path('pledge/',pledge,name='pledge'),
+    path('mortgage/',mortgage,name='mortgage'),
+    path('venture/',venture,name='venture'),
+    path('policy/',policy,name='policy')
+
 ]
 

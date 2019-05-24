@@ -67,6 +67,10 @@
         <div id="error_box"></div>
         <div class="input_box">
             <i class="in-name"></i>
+            {% for foo in messages %}
+                <span style="color: red">{{ foo }}</span>
+            {% endfor %}
+
             <input type="text" placeholder="请输入账户名" name="name" id="uname"/>
         </div>
         <div class="input_box">
