@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from tonghuashun.news import *
 
-from myapp.models import User, Industry, Product, Institutions, Investment, Loan
+from myapp.models import User, Industry, Product, Institutions, Investment, Loan, Money
 
 from tools.msg_send import get_code, confirm
 from tools.Is_login import is_login
@@ -104,9 +104,14 @@ def my_account(request):
             sum_benjin += i.amount
     # 资产总额
     sum_money = balance + sum_benjin +sum_souyi
+
+    money_list=Money.objects.filter(uid=user.uid)
+
     datas ={
         'user':user,'balance':balance,'sum_benjin':sum_benjin,
-        'sum_shouyi':sum_souyi,'sum_money':sum_money,'log_souyi':log_inves
+        'sum_shouyi':sum_souyi,'sum_money':sum_money,'log_souyi':log_inves,
+        'money_list':money_list
+
     }
 
     return render(request, 'my-account.html', datas)
@@ -345,6 +350,9 @@ def recharge(request):
             code=200
             user.em_contact = F('em_contact') + money
             user.save()
+
+            Money.objects.create(uid=user.uid, type='充值', amount=money, status=1)
+
             user = User.objects.get(uid=user.uid)
             balance = user.em_contact
         data={'code':code,'balance':balance}
@@ -372,6 +380,9 @@ def withdraw(request):
             code = 200
             user.em_contact = F('em_contact') - money
             user.save()
+
+            Money.objects.create(uid=user.uid,type='提现',amount=money,status=1)
+
             user = User.objects.get(uid=user.uid)
             balance = user.em_contact
         data = {'code': code, 'balance': balance}
@@ -486,3 +497,13 @@ def logout(request):
 # 购买成功页面
 def buy_success(requst):
     return render(requst, 'buy-success.html')
+
+
+# 资金详情页
+def financing(request):
+    user = is_login(request)
+    money = Money.objects.filter(uid=user.uid)
+    print(money.first().time)
+    print(type(money.first().time))
+
+    return render(request,'my-financing.html',locals())

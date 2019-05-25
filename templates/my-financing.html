@@ -1,3 +1,4 @@
+{% load register %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,11 +40,19 @@
 
             </div>
             <!--右边-->
+            {% if user %}
             <div class="top-right">
-              <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
-                <a target="_blank" href="login.html">立即登录</a>
-                <a target="_blank" href="{% url 'aqq:help' %}" class="red">帮助中心</a>
+                <a target="_blank" href="{% url 'aqq:account' %}">您好！{{ user.name }}</a>
+                <a target="_blank" href="{% url 'aqq:logout' %}">退出</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
             </div>
+            {% else %}
+                <div class="top-right">
+                <a target="_blank" href="{% url 'aqq:enroll' %}">快速注册</a>
+                <a target="_blank" href="{% url 'aqq:login' %}">立即登录</a>
+                <a target="_blank" href="help-center.html">帮助中心</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     <!--LOGO及导航-->
@@ -108,8 +117,6 @@
                         <li><a href="my-setsecure.html">安全中心</a></li>
                     </ul>
                 </div>
-                <li class="my-own"><i class="accicon-l-6"></i> <i class="acc-add"></i><a href="my-invite.html">我的邀请</a></li>
-                <li class="my-own"><i class="accicon-l-7"></i><a href="my-brokerage.html">我的佣金</a></li>
             </ul>
         </div>
 
@@ -121,45 +128,6 @@
                     <!--条件筛选-->
                     <div class="my-screen">
                         <div id="main">
-                            <div class="demo">
-                                <ul class="select">
-                                    <li class="select-list">
-                                        <dl id="select1">
-                                            <dt>操作类型：</dt>
-                                            <dd class="select-all selected"><a href="javascript:;">全部</a></dd>
-                                            <dd><a href="javascript:;">充值</a></dd>
-                                            <dd><a href="javascript:;">投资</a></dd>
-                                            <dd><a href="javascript:;">本金</a></dd>
-                                            <dd><a href="javascript:;">利息</a></dd>
-                                            <dd><a href="javascript:;">提现</a></dd>
-                                            <dd><a href="javascript:;">奖励</a></dd>
-                                            <dd><a href="javascript:;">还款</a></dd>
-                                        </dl>
-                                    </li>
-                                    <li class="select-list">
-                                        <dl id="select2">
-                                            <dt>交易时间：</dt>
-                                            <dd class="select-all selected"><a href="javascript:;">全部</a></dd>
-                                            <dd><a href="javascript:;">今天</a></dd>
-                                            <dd><a href="javascript:;">一周</a></dd>
-                                            <dd><a href="javascript:;">一个月</a></dd>
-                                            <dd><a href="javascript:;">三个月</a></dd>
-                                            <dd><a href="javascript:;">六个月</a></dd>
-                                        </dl>
-                                    </li>
-                                    <li class="select-list">
-                                        <dl id="select0">
-                                            <dt>查询日期：</dt>
-                                            <dd><input type="text" class="Wdate" name="startDate" id="startDate"
-                                                       value="">
-                                                <i class="sel-time-icon"></i>
-                                            </dd>
-                                            <dd><input type="text" class="Wdate" name="endDate" id="endDate" value="">
-                                            </dd>
-                                        </dl>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                     <!--数据-->
@@ -172,92 +140,17 @@
                                 <span class="invite-status">描述</span>
                             </dt>
                             <!--模拟数据-->
+                            {% for foo in money %}
+
+
+
                             <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code red">1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">充值1000</span>
+                                <span class="hail-fellow">{{ foo.type }}</span>
+                                <span class="req-code red">{{ foo.status|mySta}}</span>
+                                <span class="invite-time">{{ foo.time|mytime }}</span>
+                                <span class="invite-status">{{ foo.amount }}</span>
                             </dd>
-                            <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code blue">-1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">提现1000</span>
-                            </dd>
-                            <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code red">1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">充值1000</span>
-                            </dd>
-                            <dd id="financing-D-1">
-                                <span class="hail-fellow">本金</span>
-                                <span class="req-code red">+1500</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">本金1500</span>
-                                <div id="financing-icon-D-1" class="financing-icon-D"></div>
-                            </dd>
-                            <ul class="none-fin-list" id="none-fin-list-1" style="display: none">
-                                <li class="li-fellow"><a href="javascript:;"><span class="span-fellow">权健产品质押借11110000款20161212</span></a>
-                                    <p>项目名称</p></li>
-                                <li class="li-req-code"><span class="red">10%</span>
-                                    <p>项目收益</p></li>
-                                <li class="li-in-time"><span>2016-12-12</span>
-                                    <p>投标日期</p></li>
-                                <li class="li-in-mit"><span>2016-12-12</span>
-                                    <p>还款日</p></li>
-                                <li class="li-in-stas"><span class="red">完成</span>
-                                    <p>状态</p></li>
-                            </ul>
-                            <dd id="financing-D-2">
-                                <span class="hail-fellow">本金</span>
-                                <span class="req-code red">+1500</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">本金1500</span>
-                                <div id="financing-icon-D-2" class="financing-icon-D"></div>
-                            </dd>
-                            <ul class="none-fin-list" id="none-fin-list-2" style="display: none">
-                                <li class="li-fellow"><a href="javascript:;"><span class="span-fellow">权健产品质押借11110000款20161212</span></a>
-                                    <p>项目名称</p></li>
-                                <li class="li-req-code"><span class="red">10%</span>
-                                    <p>项目收益</p></li>
-                                <li class="li-in-time"><span>2016-12-12</span>
-                                    <p>投标日期</p></li>
-                                <li class="li-in-mit"><span>2016-12-12</span>
-                                    <p>还款日</p></li>
-                                <li class="li-in-stas"><span class="red">未完成</span>
-                                    <p>状态</p></li>
-                            </ul>
-                            <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code blue">-1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">提现1000</span>
-                            </dd>
-                            <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code blue">-1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">提现1000</span>
-                            </dd>
-                            <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code red">1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">充值1000</span>
-                            </dd>
-                            <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code blue">-1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">提现1000</span>
-                            </dd>
-                            <dd>
-                                <span class="hail-fellow">充值</span>
-                                <span class="req-code red">1000</span>
-                                <span class="invite-time">2016-12-12</span>
-                                <span class="invite-status">充值1000</span>
-                            </dd>
+                            {% endfor %}
 
                         </dl>
                         <!--如没有数据或未找到数据时显示此信息-->

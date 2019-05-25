@@ -1,3 +1,4 @@
+{% load register %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +136,7 @@
                         <span>可投金额 &nbsp;</span><em> ￥{{ balance|floatformat:-2 }}</em><span>万元</span>
                     </li>
                     <li>
-                        <span>可用金额  &nbsp;</span><em> {{ user.em_contact}}</em><span>元</span>
+                        <span>可用金额  &nbsp;</span><em> {{ user.em_contact|myCut}}</em><span>元</span>
                         <br>
                     </li>
                     <li class="chongzhis">

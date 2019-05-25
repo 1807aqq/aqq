@@ -1,3 +1,4 @@
+{% load register %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,9 +140,11 @@
                     <div class="my-all-head-2">
                         <dl>
                             <dd>
+
                                 <span>资产总额：<em>{{ sum_money }}</em></span>
                                 <span>可用余额：<em>{{ balance }}</em></span>
                                 <span>待返收益：<em>{{ sum_shouyi }}</em></span>
+
                                 <a href="{% url 'aqq:recharge' %}" class="chongzhi">充值</a>
                             </dd>
                             <dd>
@@ -229,45 +232,19 @@
                                     <span class="source">来源</span>
                                     <span class="time">操作时间</span>
                                 </dt>
+                                {% for money in money_list %}
                                 <dd>
-                                    <span class="status">充值</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
+                                    <span class="status">{{ money.type }}</span>
+                                    <span class="price red">{{ money.amount }}</span>
+                                    <span class="user">{{ money.status|mySta }}</span>
                                     <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
+                                    <span class="time">{{ money.time|mytime }}</span>
                                 </dd>
-                                <dd>
-                                    <span class="status">提现</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-mob"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
-                                <dd>
-                                    <span class="status">充值</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
-                                <dd>
-                                    <span class="status">提现</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-mob"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
-                                <dd>
-                                    <span class="status">提现</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-mob"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
+                                {% endfor %}
                             </dl>
                         </div>
                         <div class="fundtake-more">
-                            <a href="my-financing.html">查看更多</a>
+                            <a href="{% url 'aqq:financing' %}">查看更多</a>
                         </div>
                     </div>
                 </div>

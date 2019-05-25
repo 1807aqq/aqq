@@ -27,7 +27,8 @@ urlpatterns = [
     path('policy/',policy,name='policy'),
     path('logout/',logout,name='logout'),
     path('buy_success/',buy_success,name='buy_success'),
-    path('buy/<pid>/',buy,name='buy')
+    path('buy/<pid>/',buy,name='buy'),
+    path('financing/',financing,name='financing')
 
 
 ]

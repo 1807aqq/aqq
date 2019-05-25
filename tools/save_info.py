@@ -53,4 +53,8 @@ def mortgage_save(loan,product,user,amount, title, customertype, livetime, perio
     product.save()
 
 # 查询用户投资产品
+
 def user_product(user):
+
+
+
