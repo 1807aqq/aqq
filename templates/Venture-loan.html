@@ -221,18 +221,19 @@
     <div class="information" id="information">
         <div class="mation-txt">请如实填写借款申请</div>
         <div class="form-info">
-            <form enctype="multipart/form-data" action="接收上传文件的后台处理URL" method="post">
+            <form enctype="multipart/form-data" action="{% url 'aqq:venture' %}" method="post">
+                {% csrf_token %}
                 <h6>温馨提示：以下所填信息对您的借款审核非常重要，请您务必认真填写。</h6>
                 <label for="">
-                    借款金额: <input class="input-infos" type="text" placeholder="不能为空，贷款金额不小于1000元">
+                    借款金额: <input class="input-infos" type="text" placeholder="不能为空，贷款金额不小于1000元" name="amount">
                     <span>元</span><em>借款金额不能为空!</em>
                 </label>
                 <label for="">
-                    借款标题: <input class="input-infos" type="text" placeholder="例：超市老板借款，用于流动资金周转">
+                    借款标题: <input class="input-infos" type="text" placeholder="例：超市老板借款，用于流动资金周转" name="title">
                     <em>借款标题不能为空!</em>
                 </label>
-                <label for="">客户类别:
-                    <select>
+                <label for="" >客户类别:
+                    <select name="customertype">
                         <option value="公司职员">公司职员</option>
                         <option value="私营业主">私营业主</option>
                         <option value="其他">其他</option>
@@ -241,7 +242,7 @@
 
 
                 <label for="">居住时间:
-                    <select>
+                    <select name="livetime">
                         <option value="少于1年">少于1年</option>
                         <option value="1~3年">1~3年</option>
                         <option value="3~5年">3~5年</option>
@@ -251,61 +252,62 @@
                     </select>
                 </label>
                 <label for="">借款期限:
-                    <select>
-                        <option value="1个月">1个月</option>
-                        <option value="2个月">2个月</option>
-                        <option value="3个月">3个月</option>
-                        <option value="4个月">4个月</option>
-                        <option value="5个月">5个月</option>
-                        <option value="6个月">6个月</option>
-                        <option value="7个月">7个月</option>
-                        <option value="8个月">8个月</option>
-                        <option value="9个月">9个月</option>
-                        <option value="10个月">10个月</option>
-                        <option value="11个月">11个月</option>
-                        <option value="12个月">12个月</option>
+                    <select name="period">
+                       <option value="24">24个月</option>
+                        <option value="36">36个月</option>
+                        <option value="48">48个月</option>
+{#                        <option value="4个月">4个月</option>#}
+{#                        <option value="5个月">5个月</option>#}
+{#                        <option value="6个月">6个月</option>#}
+{#                        <option value="7个月">7个月</option>#}
+{#                        <option value="8个月">8个月</option>#}
+{#                        <option value="9个月">9个月</option>#}
+{#                        <option value="10个月">10个月</option>#}
+{#                        <option value="11个月">11个月</option>#}
+{#                        <option value="12个月">12个月</option>#}
                     </select>
                 </label>
                 <label for="">借款机构:
-                    <select>
-                        <option value="内蒙古鑫旺典当有限责任公司">内蒙古鑫旺典当有限责任公司</option>
-                        <option value="河北益隆典当有限责任公司">河北益隆典当有限责任公司</option>
-                        <option value="河北六顺小额贷款有限公司">河北六顺小额贷款有限公司</option>
-                        <option value="内蒙古蒙信小额贷款有限公司">内蒙古蒙信小额贷款有限公司</option>
+                    <select name="lenders">
+                        <option value="1">内蒙古鑫旺典当有限责任公司</option>
+                        <option value="2">河北益隆典当有限责任公司</option>
+                        <option value="3">河北六顺小额贷款有限公司</option>
+                        <option value="4">内蒙古蒙信小额贷款有限公司</option>
                     </select>
                     <a href="#company-state" style="font-size: 16px; margin-left: 20px;" class="blue">了解相关公司信息</a>
                 </label>
                 <label for="">还款方式:
-                    <select>
-                        <option value="先息后本">先息后本</option>
-                        <option value="先息后本">等额本息</option>
-                        <option value="先息后本">利随本清</option>
+                    <select name="lendmethod">
+                        <option value="1">先息后本</option>
+                        <option value="2">等额本息</option>
+                        <option value="3">利随本清</option>
                     </select>
                 </label>
 
                 <label for="">
-                    居住城市: <input class="input-infos" type="text" placeholder="例：北京市">
+                    居住城市: <input class="input-infos" type="text" placeholder="例：北京市" name="livespace">
                     <em>居住城市不能为空!例：北京市</em>
                 </label>
 
                 <label for="">
-                    工作年限: <input class="input-infos" type="text" placeholder="请输入您的工作年限">
+                    工作年限: <input class="input-infos" type="text" placeholder="请输入您的工作年限" name="workertime">
                     <span>年</span><em>工作年限不能为空!例：2年</em>
                 </label>
 
                 <label for="">
-                    税后工资: <input class="input-infos" type="text" placeholder="请输入您的税后工资">
+                    税后工资: <input class="input-infos" type="text" placeholder="请输入您的税后工资" name="salary">
                     <span>元</span><em>税后工资不能为空!例：5000元</em>
                 </label>
 
                 <label for="" class="labinfo">
-                    <p>借款目的:</p> <textarea placeholder="请输入您的借款目的，不少于20字"></textarea>
+                    <p>借款目的:</p> <textarea placeholder="请输入您的借款目的，不少于20字" name="use"></textarea>
                     <em>借款目的不能少于20字!</em>
                 </label>
 
                 <label for="" class="labinfo">
                     <p>借款描述:</p> <textarea
-                        placeholder="此描述用于向借款机构展示您的借款用途、工作收入、资产状况、信用记录及还款来源等，请您认真填写。不少于20字"></textarea>
+                        placeholder="此描述用于向借款机构展示您的借款用途、工作收入、资产状况、信用记录及还款来源等，请您认真填写。不少于20字"
+                name="info"></textarea>
                     <em>借款描述不能少于20字!</em>
                 </label>
 
