@@ -1,12 +1,12 @@
 
-from django.db.models import Q, Sum, Count
+from django.db.models import Q, Sum, Count, F
 from django.contrib import messages
 from django.http import JsonResponse
 from django.urls import reverse
 
 from tonghuashun.news import *
 
-from myapp.models import User, Industry ,Product ,Institutions
+from myapp.models import User, Industry, Product, Institutions, Investment
 
 from tools.msg_send import get_code, confirm
 from tools.Is_login import is_login
@@ -184,7 +184,7 @@ def invest(request,tid,sid,did,page):
             'sid': sid,
             'did': did,
             'page':newpage,
-            'user':user
+            'user':user,
         }
         return render(request,'invest.html',data)
 
@@ -193,12 +193,16 @@ def invest(request,tid,sid,did,page):
 # 产品详情页
 def details(request,pid):
     user = is_login(request)
-
     pro = Product.objects.get(id=int(pid))
     pay = ['先息后本','先本后息','等额本金','等额本息']
     payment = pay[pro.payment-1]
     data = pro.info.split('&')
-    print(payment)
+    inv = Investment.objects.filter(uid=user.uid,pid=pro.id)
+    if inv.exists() :
+        print(inv)
+        balance = pro.amount - (inv.first().amount)/10000
+    else:
+        balance = pro.amount
     data1 = data[0]
     data2 = data[1]
     data3 = data[2]
@@ -208,7 +212,53 @@ def details(request,pid):
                    'data1':data1,
                    'data2':data2,
                    'data3':data3,
-                   'user':user})
+                   'user':user,
+                   'balance':balance})
+#投资输入金额
+
+def buy(request,pid):
+    user = is_login(request)
+    if request.method == 'GET':
+        if user.em_contact == None:
+            money = 0.0
+        else:
+            money = user.em_contact
+        return render(request,'buy.html',{'user':user,'money':money,'pid':pid})
+    elif request.method == 'POST':
+        pro = Product.objects.get(id=pid)
+        buy_money = request.POST.get('money')
+        if user.em_contact > int(buy_money) \
+                and int(buy_money)< (pro.amount)*10000:
+            try:
+                user.em_contact=F('em_contact')-int(buy_money)
+
+                inv = Investment.objects.filter(pid=pid, uid=user.uid)
+                if inv.exists():
+                    #inv.update(amount=F('amount')+int(buy_money))  第一种可以
+                    a = inv.first()
+                    a.amount = F('amount')+int(buy_money)
+                    a.save()
+
+                else:
+                    inv = Investment.objects.create(uid=user.uid,pid=pid,amount=int(buy_money))
+                    inv.save()
+                user.save()
+                code = 200
+                msg = '投资成功'
+            except Exception as e:
+                print(e)
+                code = 400
+                msg = '投资失败'
+        else:
+
+            code=300
+            msg = '余额不足'
+
+        return JsonResponse({
+                    'code':code,
+                    'msg':msg
+                    })
+
 # 安全保障
 def secure(request):
     user = is_login(request)
@@ -240,12 +290,6 @@ def help(request):
 # 充值
 def recharge(request):
     user = is_login(request)
-
-    money = request.POST.get('money')
-
-    user.em_contact=money
-    User.objects.filter('em_contact')
-    
     return render(request,'my-recharge.html',{'user':user})
 
 #提现

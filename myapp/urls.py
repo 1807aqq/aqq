@@ -25,7 +25,8 @@ urlpatterns = [
     path('mortgage/',mortgage,name='mortgage'),
     path('venture/',venture,name='venture'),
     path('policy/',policy,name='policy'),
-    path('logout/',logout,name='logout')
+    path('logout/',logout,name='logout'),
+    path('buy/<pid>/',buy,name='buy')
 
 ]
 
