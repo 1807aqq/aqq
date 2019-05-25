@@ -86,10 +86,30 @@ def login(request):
             messages.add_message(request, messages.INFO, '用户名不存在！！')
             return redirect('aqq:register')
 
-
+# 我的账户
 def my_account(request):
     user = is_login(request)
-    return render(request, 'my-account.html', {'user': user})
+    
+    # 查询当前用户的可用余额
+    balance = user.em_contact
+    # 查询当前用户的投资记录即待返本金
+    log_inves = Investment.objects.filter(uid=user.uid)
+    sum_souyi = 0
+    sum_benjin = 0
+    for i in log_inves:
+        # 查询用户每个投资记录的年利率然后计算收益
+        products = Product.objects.filter(id=i.pid)
+        for j in products:
+            sum_souyi += int(j.y_rate)/100 * i.amount
+            sum_benjin += i.amount
+    # 资产总额
+    sum_money = balance + sum_benjin +sum_souyi
+    datas ={
+        'user':user,'balance':balance,'sum_benjin':sum_benjin,
+        'sum_shouyi':sum_souyi,'sum_money':sum_money,'log_souyi':log_inves
+    }
+
+    return render(request, 'my-account.html', datas)
 
 
 # 进入首页
@@ -310,14 +330,52 @@ def help(request):
 # 充值
 def recharge(request):
     user = is_login(request)
-
-
-    return render(request, 'my-recharge.html', {'user': user})
-
+    # 账户余额
+    if request.user:
+        balance = user.em_contact
+    if request.method == 'GET':
+        return render(request, 'my-recharge.html', {'user': user,'balance':balance})
+    elif request.method == 'POST':
+        money = int(request.POST.get('money'))
+        msg=None
+        if money < 0:
+            code=300
+            msg='充值金额必须大于0'
+        else:
+            code=200
+            user.em_contact = F('em_contact') + money
+            user.save()
+            user = User.objects.get(uid=user.uid)
+            balance = user.em_contact
+        data={'code':code,'balance':balance}
+        return JsonResponse(data)
 
 # 提现
 def withdraw(request):
     user = is_login(request)
+    user = is_login(request)
+    # 账户余额
+    if request.user:
+        balance = user.em_contact
+    if request.method == 'GET':
+        return render(request, 'my-withdraw.html', {'user': user, 'balance': balance})
+    elif request.method == 'POST':
+        money = int(request.POST.get('money'))
+        msg = None
+        if money < 0:
+            code = 300
+            msg = '提现金额不合法'
+        elif (user.em_contact-money)<0:
+           code = 400
+           msg = '余额不足，无法提现'
+        else:
+            code = 200
+            user.em_contact = F('em_contact') - money
+            user.save()
+            user = User.objects.get(uid=user.uid)
+            balance = user.em_contact
+        data = {'code': code, 'balance': balance}
+        return JsonResponse(data)
     return render(request, 'my-withdraw.html', {'user': user})
 
 
