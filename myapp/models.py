@@ -38,7 +38,7 @@ class User(models.Model):
     # 是否买车
     car = models.BooleanField(blank=True,null=True)
     # 已修改----账户余额
-    em_contact = models.CharField(max_length=30,blank=True,null=True)
+    em_contact = models.FloatField(blank=True,null=True)
 
     class Meta:
         db_table = 'user'

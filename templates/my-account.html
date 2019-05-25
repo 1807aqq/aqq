@@ -1,3 +1,4 @@
+{% load register %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,8 +89,8 @@
                 <li class="my-own my-fund-1"><i class="accicon-l-2"></i>我的资金 <i class="accicon-r-1"></i></li>
                 <div class="my-rec-1">
                     <ul>
-                        <li><a href="my-recharge.html">充值</a></li>
-                        <li><a href="my-withdraw.html">提现</a></li>
+                        <li><a href="{% url 'aqq:recharge' %}">充值</a></li>
+                        <li><a href="{% url 'aqq:withdraw' %}">提现</a></li>
                     </ul>
                 </div>
                 <li class="my-own my-fund-2"><i class="accicon-l-3"></i>我的投资 <i class="accicon-r-2"></i></li>
@@ -139,13 +140,15 @@
                     <div class="my-all-head-2">
                         <dl>
                             <dd>
-                                <span>资产总额：<em>0.00</em></span>
-                                <span>可用余额：<em>0.00</em></span>
-                                <span>待返收益：<em>0.00</em></span>
+
+                                <span>资产总额：<em>{{ sum_money }}</em></span>
+                                <span>可用余额：<em>{{ balance }}</em></span>
+                                <span>待返收益：<em>{{ sum_shouyi }}</em></span>
+
                                 <a href="{% url 'aqq:recharge' %}" class="chongzhi">充值</a>
                             </dd>
                             <dd>
-                                <span>待返本金：<em>0.00</em></span>
+                                <span>待返本金：<em>{{ sum_benjin }}</em></span>
                                 <span> <em> </em></span>
                                 <span><em></em></span>
                                 <a href="{% url 'aqq:withdraw' %}" class="tixian">提现</a>
@@ -168,43 +171,49 @@
                                     <span class="source">来源</span>
                                     <span class="time">期限</span>
                                 </dt>
-                                <dd>
-                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520</a></span>
-                                    <span class="price">按日付息，到期还本</span>
-                                    <span class="user">10%</span>
-                                    <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">90天</span>
-                                </dd>
-                                <dd>
-                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>
-                                    <span class="price">按日付息，到期还本</span>
-                                    <span class="user">100%</span>
-                                    <span class="source"><i class="source-mob"></i></span>
-                                    <span class="time">190天</span>
-                                </dd>
-                                <dd>
-                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>
-                                    <span class="price">按日付息，到期还本</span>
-                                    <span class="user">10%</span>
-                                    <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">90天</span>
-                                </dd>
-                                <dd>
-                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>
-                                    <span class="price">按日付息，到期还本</span>
-                                    <span class="user">10%</span>
-                                    <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">90天</span>
-                                </dd>
-                                <dd>
-                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>
-                                    <span class="price">按日付息，到期还本</span>
-                                    <span class="user">10%</span>
-                                    <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">90天</span>
-                                </dd>
-                            </dl>
-                        </div>
+                                {% for foo in log_souyi %}
+                                    <dd>
+                                    <span>foo.pid</span>
+                                    </dd>
+                                {% endfor %}
+
+{#                                <dd>#}
+{#                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520</a></span>#}
+{#                                    <span class="price">按日付息，到期还本</span>#}
+{#                                    <span class="user">10%</span>#}
+{#                                    <span class="source"><i class="source-pc"></i></span>#}
+{#                                    <span class="time">90天</span>#}
+{#                                </dd>#}
+{#                                <dd>#}
+{#                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>#}
+{#                                    <span class="price">按日付息，到期还本</span>#}
+{#                                    <span class="user">100%</span>#}
+{#                                    <span class="source"><i class="source-mob"></i></span>#}
+{#                                    <span class="time">190天</span>#}
+{#                                </dd>#}
+{#                                <dd>#}
+{#                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>#}
+{#                                    <span class="price">按日付息，到期还本</span>#}
+{#                                    <span class="user">10%</span>#}
+{#                                    <span class="source"><i class="source-pc"></i></span>#}
+{#                                    <span class="time">90天</span>#}
+{#                                </dd>#}
+{#                                <dd>#}
+{#                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>#}
+{#                                    <span class="price">按日付息，到期还本</span>#}
+{#                                    <span class="user">10%</span>#}
+{#                                    <span class="source"><i class="source-pc"></i></span>#}
+{#                                    <span class="time">90天</span>#}
+{#                                </dd>#}
+{#                                <dd>#}
+{#                                    <span class="status"><a href="javascript:;">权健产品质押借款20160520押借款201605</a></span>#}
+{#                                    <span class="price">按日付息，到期还本</span>#}
+{#                                    <span class="user">10%</span>#}
+{#                                    <span class="source"><i class="source-pc"></i></span>#}
+{#                                    <span class="time">90天</span>#}
+{#                                </dd>#}
+{#                            </dl>#}
+{#                        </div>#}
                         <div class="my-investtake-more">
                             <a href="my-investment.html">查看更多</a>
                         </div>
@@ -223,45 +232,19 @@
                                     <span class="source">来源</span>
                                     <span class="time">操作时间</span>
                                 </dt>
+                                {% for money in money_list %}
                                 <dd>
-                                    <span class="status">充值</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
+                                    <span class="status">{{ money.type }}</span>
+                                    <span class="price red">{{ money.amount }}</span>
+                                    <span class="user">{{ money.status|mySta }}</span>
                                     <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
+                                    <span class="time">{{ money.time|mytime }}</span>
                                 </dd>
-                                <dd>
-                                    <span class="status">提现</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-mob"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
-                                <dd>
-                                    <span class="status">充值</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-pc"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
-                                <dd>
-                                    <span class="status">提现</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-mob"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
-                                <dd>
-                                    <span class="status">提现</span>
-                                    <span class="price red">20,000.00</span>
-                                    <span class="user">完成</span>
-                                    <span class="source"><i class="source-mob"></i></span>
-                                    <span class="time">2016-09-01 10:46</span>
-                                </dd>
+                                {% endfor %}
                             </dl>
                         </div>
                         <div class="fundtake-more">
-                            <a href="my-financing.html">查看更多</a>
+                            <a href="{% url 'aqq:financing' %}">查看更多</a>
                         </div>
                     </div>
                 </div>

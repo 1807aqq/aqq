@@ -86,8 +86,8 @@
                 <li class="my-own my-fund-1"><i class="accicon-l-2"></i>我的资金 <i class="accicon-r-1"></i></li>
                 <div class="my-rec-1">
                     <ul>
-                        <li><a href="my-recharge.html" class="red">充值</a></li>
-                        <li><a href="my-withdraw.html">提现</a></li>
+                        <li><a href="{% url 'aqq:recharge' %}" class="red">充值</a></li>
+                        <li><a href="{% url 'aqq:withdraw' %}">提现</a></li>
                     </ul>
                 </div>
                 <li class="my-own my-fund-2"><i class="accicon-l-3"></i>我的投资 <i class="accicon-r-2"></i></li>
@@ -136,14 +136,14 @@
                 <div class="recharge-num">
                     <ul>
                         <li>
-                            <span>账户余额 <em>0.00</em>元</span>
+                            <span>账户余额 <em>{{ balance }}</em>元</span>
                         </li>
                         <li>
                             <label>充值金额</label>
-                            <input type="text" value="" class="infos" name="money" placeholder="请输入充值金额" />
+                            <input type="text" value="" class="infos" name="money" placeholder="请输入充值金额" id="add"/>
                         </li>
                         <li>
-                            <a href="javascript:;" class="recharge-sub">充值</a>
+                            <button  class="recharge-sub" id="btn">充值</button>
                         </li>
                     </ul>
                 </div>
@@ -153,7 +153,7 @@
             <div class="recharge-suss">
                 <div class="recharge-prompt">
                     <h3><i></i>充值成功</h3>
-                    <span>账户余额 <em>{{ money }}</em>元</span>
+                    <span>账户余额 <em id="balance"></em>元</span>
                 </div>
             </div>
         </div>
@@ -220,8 +220,21 @@
 <script>
     $(function () {
         $('.recharge-sub').click(function () {
-            $('.recharge').hide();
-            $('.recharge-suss').show();
+            var money = $('#add').val();
+            $.ajax({
+                    url:'{% url 'aqq:recharge' %}',
+                    type:'POST',
+                    data:{money:money,csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success:function (data) {
+                    if(data.code==200){
+                        $('.recharge').hide();
+                        $('.recharge-suss').show();
+                        $('#balance').text(data.balance)
+                    } else if(data.code==300){alert(data.msg)}
+                    else if(data.code==300){alert(data.msg)}
+                }
+            });
+
         })
     })
 </script>

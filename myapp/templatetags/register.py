@@ -28,5 +28,16 @@ def myCut(value):
         if n==3:
             m+=','
             n=0
-
     return m[::-1]+str(value)[-2:]
+@register.filter()
+def mySta(value):
+    if value==1:
+        return '完成'
+    else:
+        return '正在进行'
+
+@register.filter()
+def mytime(value:datetime):
+    return str(value)[:19]
+
+

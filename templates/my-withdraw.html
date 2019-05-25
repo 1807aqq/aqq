@@ -112,8 +112,8 @@
                         <li><a href="my-setsecure.html">安全中心</a></li>
                     </ul>
                 </div>
-                <li class="my-own"><i class="accicon-l-6"></i> <i class="acc-add"></i><a href="my-invite.html">我的邀请</a></li>
-                <li class="my-own"><i class="accicon-l-7"></i><a href="my-brokerage.html">我的佣金</a></li>
+{#                <li class="my-own"><i class="accicon-l-6"></i> <i class="acc-add"></i><a href="my-invite.html">我的邀请</a></li>#}
+{#                <li class="my-own"><i class="accicon-l-7"></i><a href="my-brokerage.html">我的佣金</a></li>#}
             </ul>
         </div>
 
@@ -135,14 +135,15 @@
                 <div class="withdraw-num">
                     <ul>
                         <li>
-                            <span>账户余额 <em>0.00</em>元</span>
+                            <span>账户余额 <em>{{ balance }}</em>元</span>
                         </li>
                         <li>
                             <label>提现金额</label>
-                            <input type="text" value="" class="infos" placeholder="请输入提现金额"/>
+                            <input type="text" value="" class="infos" placeholder="请输入提现金额" id="sub"/>
                         </li>
                         <li>
-                            <a href="javascript:;" class="withdraw-sub">提现</a>
+{#                            <a href="javascript:;" class="withdraw-sub">提现</a>#}
+                            <button  class="withdraw-sub" id="btn">提现</button>
                         </li>
                     </ul>
                 </div>
@@ -151,7 +152,7 @@
             <div class="withdraw-suss">
                 <div class="withdraw-prompt">
                     <h3><i></i>提现成功</h3>
-                    <span>账户余额 <em>0.00</em>元</span>
+                    <span>账户余额 <em id="balance"></em>元</span>
                 </div>
             </div>
         </div>
@@ -216,13 +217,35 @@
 </div>
 <!--footer结束-->
 
+
+{#<script>#}
+{#    $(function () {#}
+{#        $('.withdraw-sub').click(function () {#}
+{#            $('.withdraw').hide();#}
+{#            $('.withdraw-suss').show();#}
+{#        })#}
+{#    })#}
+{#</script>#}
+</body>
 <script>
-    $(function () {
+$(function () {
         $('.withdraw-sub').click(function () {
-            $('.withdraw').hide();
-            $('.withdraw-suss').show();
+            var money = $('#sub').val();
+            $.ajax({
+                    url:'{% url 'aqq:withdraw' %}',
+                    type:'POST',
+                    data:{money:money,csrfmiddlewaretoken: '{{ csrf_token }}'},
+                    success:function (data) {
+                    if(data.code==200){
+                        $('.withdraw').hide();
+                        $('.withdraw-suss').show();
+                        $('#balance').text(data.balance)
+                    } else if(data.code==300){alert(data.msg)}
+                    else if(data.code==300){alert(data.msg)}
+                }
+            });
+
         })
     })
-</script>
-</body>
+        </script>
 </html>
