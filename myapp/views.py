@@ -179,18 +179,29 @@ def invest(request, tid, sid, did, page):
                     data[a] = b
             print(data)
             produces = Product.objects.filter(**data)[m - 8:m]
-
         else:
             produces = Product.objects.all()[m - 8:m]
-        newpage += 1
+
+        newpage +=1
+        balances = []
+        for produce in produces:
+            inv = Investment.objects.filter(pid=produce.id)
+            if inv.exists():
+                print(inv.aggregate(Sum('amount')))
+                balance = produce.amount - (inv.aggregate(Sum('amount'))['amount__sum']) / 10000
+
+            else:
+                balance = produce.amount
+
+            produce.balance = balance
+
         data = {
             'products': produces,
             'tid': tid,
             'sid': sid,
             'did': did,
-            'page': newpage,
-            'user': user
-
+            'page':newpage,
+            'user':user,
         }
         return render(request, 'invest.html', data)
 
