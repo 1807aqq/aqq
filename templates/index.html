@@ -156,7 +156,7 @@
         <div class="unif-num">
             <ul>
                 <li>
-                    <p>{{ sum_amount.amount__sum }}万</p>
+                    <p>{{ sum_amount.amount__sum|floatformat:-2 }}万</p>
                     <p>累计企业和个人融资</p>
                 </li>
                 <li>
@@ -240,7 +240,7 @@
                     {% for new_pro in new_pros %}
                     <li>
                         <h4>{{ new_pro.name }}</h4>
-                        <h1>{{ new_pro.y_rate }}%</h1>
+                        <h1>{{ new_pro.y_rate|floatformat:-2 }}%</h1>
                         <p>周期{{ new_pro.time_limit }}月</p>
                         <a href="http://localhost:8000/aqq/product/{{ new_pro.id }}/">立即投资</a>
                     </li>
@@ -269,7 +269,7 @@
                     <h4>{{ pro.name }}</h4>
                     <ul>
                         <li>
-                            <h2 class="red">{{ pro.y_rate }}<em>%</em></h2>
+                            <h2 class="red">{{ pro.y_rate|floatformat:-2 }}<em>%</em></h2>
                             <p>年化收益率</p>
                         </li>
                         <li>
@@ -303,7 +303,7 @@
                     <div class="mask">
                         <h2>质押贷款</h2>
                         <span>超高评估</span><span><em>￥</em>质押首选</span>
-                        <a href="borrow-money.html" class="info" target="_blank">我要申请</a>
+                        <a href="{% url 'aqq:borrow' %}" class="info" target="_blank">我要申请</a>
                     </div>
                 </div>
 
@@ -311,7 +311,7 @@
                     <div class="mask">
                         <h2>创业贷款</h2>
                         <span>超高额度</span><span><em>￥</em>创业首选</span>
-                        <a href="borrow-money.html" class="info" target="_blank">我要申请</a>
+                        <a href="{% url 'aqq:borrow' %}" class="info" target="_blank">我要申请</a>
                     </div>
                 </div>
 
@@ -321,14 +321,14 @@
                     <div class="mask">
                         <h2>保单贷款</h2>
                         <span>优质保单</span><span><em>￥</em>为你而选</span>
-                        <a href="borrow-money.html" class="info" target="_blank">我要申请</a>
+                        <a href="{% url 'aqq:borrow' %}" class="info" target="_blank">我要申请</a>
                     </div>
                 </div>
                 <div class="view photo-2 pic-1"><img src="/static/img/house.jpg" alt="">
                     <div class="mask">
                         <h2>抵押贷款</h2>
                         <span>高效审核</span><span><em>￥</em>快速放款</span>
-                        <a href="borrow-money.html" class="info" target="_blank">我要申请</a>
+                        <a href="{% url 'aqq:borrow' %}" class="info" target="_blank">我要申请</a>
                     </div>
                 </div>
             </div>

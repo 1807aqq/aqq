@@ -28,7 +28,11 @@ urlpatterns = [
     path('logout/',logout,name='logout'),
     path('buy_success/',buy_success,name='buy_success'),
     path('buy/<pid>/',buy,name='buy'),
+<<<<<<< HEAD
     path('myinvestment/',my_investment,name='myinvestment')
+=======
+    path('financing/',financing,name='financing')
+>>>>>>> df4b583288f1fef117b54b3e1bfa9b63ba88f278
 
 
 ]

@@ -55,6 +55,7 @@ def mortgage_save(loan,product,user,amount, title, customertype, livetime, perio
     product.save()
 
 # 查询用户投资产品
+
 def user_product(user,Product,Investment):
     log_inves = Investment.objects.filter(uid=user.uid)
     class A(object):
@@ -77,6 +78,7 @@ def user_product(user,Product,Investment):
             logs.append(a)
     return logs
     # 资产总额
+
 
 
 
