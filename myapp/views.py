@@ -18,7 +18,7 @@ from django.shortcuts import render, redirect
 from myapp.models import User
 
 # 注册页面
-from tools.save_info import mortgage_save, get_info
+from tools.save_info import mortgage_save, get_info, user_product
 
 
 def register(request):
@@ -89,27 +89,27 @@ def login(request):
 # 我的账户
 def my_account(request):
     user = is_login(request)
-    
-    # 查询当前用户的可用余额
-    balance = user.em_contact
-    # 查询当前用户的投资记录即待返本金
-    log_inves = Investment.objects.filter(uid=user.uid)
-    sum_souyi = 0
-    sum_benjin = 0
-    for i in log_inves:
-        # 查询用户每个投资记录的年利率然后计算收益
-        products = Product.objects.filter(id=i.pid)
-        for j in products:
-            sum_souyi += int(j.y_rate)/100 * i.amount
-            sum_benjin += i.amount
-    # 资产总额
-    sum_money = balance + sum_benjin +sum_souyi
-    datas ={
-        'user':user,'balance':balance,'sum_benjin':sum_benjin,
-        'sum_shouyi':sum_souyi,'sum_money':sum_money,'log_souyi':log_inves
-    }
-
-    return render(request, 'my-account.html', datas)
+    if request.user:
+        # 查询当前用户的可用余额
+        balance = user.em_contact
+        # 查询当前用户的投资记录即待返本金
+        log_inves = Investment.objects.filter(uid=user.uid)
+        sum_souyi = 0
+        sum_benjin = 0
+        for i in log_inves:
+            # 查询用户每个投资记录的年利率然后计算收益
+            products = Product.objects.filter(id=i.pid)
+            for j in products:
+                sum_souyi += int(j.y_rate)/100 * i.amount
+                sum_benjin += i.amount
+        # 资产总额
+        sum_money = balance + sum_benjin +sum_souyi
+        logs = user_product(user, Product, Investment)
+        datas ={
+            'user':user,'balance':balance,'sum_benjin':sum_benjin,
+            'sum_shouyi':sum_souyi,'sum_money':sum_money,'logs':logs
+        }
+        return render(request, 'my-account.html', datas)
 
 
 # 进入首页
@@ -361,7 +361,6 @@ def withdraw(request):
         return render(request, 'my-withdraw.html', {'user': user, 'balance': balance})
     elif request.method == 'POST':
         money = int(request.POST.get('money'))
-        msg = None
         if money < 0:
             code = 300
             msg = '提现金额不合法'
@@ -374,7 +373,7 @@ def withdraw(request):
             user.save()
             user = User.objects.get(uid=user.uid)
             balance = user.em_contact
-        data = {'code': code, 'balance': balance}
+        data = {'code': code, 'balance': balance,'msg':msg}
         return JsonResponse(data)
     return render(request, 'my-withdraw.html', {'user': user})
 
@@ -486,3 +485,9 @@ def logout(request):
 # 购买成功页面
 def buy_success(requst):
     return render(requst, 'buy-success.html')
+
+# 我的投资记录页面
+def my_investment(request):
+    user = is_login(request)
+    if request.user:
+        return render(request,'my-investment.html',{'user':user})

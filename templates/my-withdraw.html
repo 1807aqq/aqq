@@ -240,8 +240,7 @@ $(function () {
                         $('.withdraw').hide();
                         $('.withdraw-suss').show();
                         $('#balance').text(data.balance)
-                    } else if(data.code==300){alert(data.msg)}
-                    else if(data.code==300){alert(data.msg)}
+                    } else if(data.code==300){alert(data.msg)}else if(data.code==400){alert(data.msg)}
                 }
             });
 

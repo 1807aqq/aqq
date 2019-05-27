@@ -2,6 +2,8 @@ import random
 
 
 # 抵押贷款保存信息
+from myapp.models import Investment, Product
+
 
 def get_info(request):
     amount = request.POST.get('amount')
@@ -53,4 +55,28 @@ def mortgage_save(loan,product,user,amount, title, customertype, livetime, perio
     product.save()
 
 # 查询用户投资产品
-def user_product(user):
+def user_product(user,Product,Investment):
+    log_inves = Investment.objects.filter(uid=user.uid)
+    class A(object):
+        pass
+    logs = []
+    pay = ['先息后本', '先本后息', '等额本金', '等额本息']
+    for i in log_inves:
+        # 查询用户每个投资记录的年利率然后计算收益
+        products = Product.objects.filter(id=i.pid)
+        for j in products:
+            a = A()
+            # 产品名称
+            a.title = j.name
+            # 还款方式
+            a.payment = pay[j.payment-1]
+            # 期限
+            a.limit=j.time_limit
+            # 利率
+            a.rate = j.y_rate
+            logs.append(a)
+    return logs
+    # 资产总额
+
+
+
